@@ -4,13 +4,14 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "assets/css/nucleo-svg.css";
 import "assets/css/nucleo-icons.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import "@fortawesome/fontawesome-pro/css/all.css";
 import "assets/scss/argon-design-system.scss?v1.0.0";
 
 import Index from "views/Index.js";
 import Sections from "views/Sections.js";
 import Presentation from "views/Presentation.js";
 import AboutUs from "views/examples/AboutUs.js";
+import MainPage from "views/examples/MainPage";
 import AccountSettings from "views/examples/AccountSettings.js";
 import BlogPost from "views/examples/BlogPost.js";
 import BlogPosts from "views/examples/BlogPosts.js";
@@ -49,6 +50,11 @@ ReactDOM.render(
         path="/about-us"
         exact
         render={(props) => <AboutUs {...props} />}
+      />
+      <Route
+          path="/main-page"
+          exact
+          render={(props) => <MainPage {...props} />}
       />
       <Route
         path="/account-settings"

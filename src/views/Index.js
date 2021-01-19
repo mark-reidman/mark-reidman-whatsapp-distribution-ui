@@ -60,7 +60,7 @@ function Index() {
   return (
     <>
       <DemoNavbar type="transparent" />
-      <div className="wrapper">
+      <div className="wrapper ml-auto">
         <Button
           className="btn-icon-only back-to-top show"
           color="primary"

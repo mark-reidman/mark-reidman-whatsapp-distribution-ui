@@ -22,41 +22,41 @@ import TablesSection from "components/sections-page/TablesSection.js";
 import AccordionsSection from "components/sections-page/AccordionsSection.js";
 
 function Sections() {
-  React.useEffect(() => {
-    document.body.classList.add("sections-page");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    var href = window.location.href.substring(
-      window.location.href.lastIndexOf("#") + 1
+    React.useEffect(() => {
+        document.body.classList.add("sections-page");
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        var href = window.location.href.substring(
+            window.location.href.lastIndexOf("#") + 1
+        );
+        if (
+            window.location.href.lastIndexOf("#") > 0 &&
+            document.getElementById(href)
+        ) {
+            document.getElementById(href).scrollIntoView();
+        }
+        return function cleanup() {
+            document.body.classList.remove("sections-page");
+        };
+    });
+    return (
+        <>
+            <DemoNavbar type="dark"/>
+            <div className="wrapper">
+                <HeadersSection/>
+                <FeaturesSection/>
+                {/*<BlogsSection/>*/}
+                {/*<TeamsSection/>*/}
+                {/*<ProjectsSection/>*/}
+                <PricingsSection/>
+                {/*<TestimonialsSection/>*/}
+                {/*<ContactUsSection/>*/}
+                {/*<TablesSection/>*/}
+                {/*<AccordionsSection/>*/}
+                <DemoFooter/>
+            </div>
+        </>
     );
-    if (
-      window.location.href.lastIndexOf("#") > 0 &&
-      document.getElementById(href)
-    ) {
-      document.getElementById(href).scrollIntoView();
-    }
-    return function cleanup() {
-      document.body.classList.remove("sections-page");
-    };
-  });
-  return (
-    <>
-      <DemoNavbar type="dark" />
-      <div className="wrapper">
-        <HeadersSection />
-        <FeaturesSection />
-        <BlogsSection />
-        <TeamsSection />
-        <ProjectsSection />
-        <PricingsSection />
-        <TestimonialsSection />
-        <ContactUsSection />
-        <TablesSection />
-        <AccordionsSection />
-        <DemoFooter />
-      </div>
-    </>
-  );
 }
 
 export default Sections;

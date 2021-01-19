@@ -16,10 +16,10 @@ function PricingsSection() {
   return (
     <>
       <div className="cd-section" id="pricing">
-        <Pricing1 />
-        <Pricing2 />
-        <Pricing3 />
-        <Pricing4 />
+        {/*<Pricing1 />*/}
+        {/*<Pricing2 />*/}
+        {/*<Pricing3 />*/}
+        {/*<Pricing4 />*/}
         <Pricing5 />
       </div>
     </>
