@@ -28,10 +28,12 @@ import ProductPage from "views/examples/ProductPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import ResetPage from "views/examples/ResetPage.js";
+import Login from "views/login/Login.js"
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
+      <Route path="/login" component={ Login }/>
       <Route path="/index" exact render={(props) => <Index {...props} />} />
       <Route
         path="/sections"
@@ -129,7 +131,9 @@ ReactDOM.render(
         exact
         render={(props) => <ResetPage {...props} />}
       />
-      <Redirect to="/presentation" />
+      {/* <Redirect to="/presentation" /> */}
+      <Redirect to="/Login" />
+      
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
