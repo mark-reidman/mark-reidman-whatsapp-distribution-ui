@@ -2,3 +2,83 @@ body{
   font-family: 'Varela Round', sans-serif;
 }
 
+.wizard-container {
+  padding-top: 100px;
+  z-index: 3;
+}
+
+.wizard-card {
+  min-height: 410px;
+  box-shadow: 0 20px 16px -15px rgba(0, 0, 0, 0.57);
+}
+
+.wizard-card .wizard-header {
+  padding: 15px 15px 15px 15px;
+}
+
+.wizard-card .wizard-header h3 {
+  text-align: center;
+}
+
+.wizard-card .category {
+  font-size: 14px;
+  font-weight: 400;
+  color: #9A9A9A;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.wizard-card .tab-content {
+  min-height: 435px;
+  padding: 0px 20px 10px;
+}
+
+.wizard-card .wizard-footer {
+  padding: 0 15px 5px;
+}
+
+.wizard-table {
+  margin-top: 40px;
+}
+
+.wizard-big-icon
+{
+  font-size: 3em;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.green-color
+{
+  color: #28a745
+}
+
+.info-color{
+  color: #17a2b8
+}
+
+.danger-color {
+  color: #dc3545
+}
+
+.default-color {
+  color: #172b4d
+}

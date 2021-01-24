@@ -20,6 +20,7 @@ import TestimonialsSection from "components/sections-page/TestimonialsSection.js
 import ContactUsSection from "components/sections-page/ContactUsSection.js";
 import TablesSection from "components/sections-page/TablesSection.js";
 import AccordionsSection from "components/sections-page/AccordionsSection.js";
+import CampaignSection from "components/sections-page/CampaignSection.js"
 
 function Sections() {
     React.useEffect(() => {
@@ -44,13 +45,14 @@ function Sections() {
             <DemoNavbar type="dark"/>
             <div className="wrapper">
                 <HeadersSection/>
+                <CampaignSection/>
                 <FeaturesSection/>
                 {/*<BlogsSection/>*/}
                 {/*<TeamsSection/>*/}
                 {/*<ProjectsSection/>*/}
                 <PricingsSection/>
                 {/*<TestimonialsSection/>*/}
-                {/*<ContactUsSection/>*/}
+                {/* <ContactUsSection/> */}
                 {/*<TablesSection/>*/}
                 {/*<AccordionsSection/>*/}
                 <DemoFooter/>

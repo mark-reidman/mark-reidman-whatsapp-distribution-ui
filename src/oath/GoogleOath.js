@@ -1,46 +1,31 @@
-import React, { Component } from 'react'
+import React, { useContext, useState } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Button } from "reactstrap";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import AuthContext from './AuthContext'
 
 const CLIENT_ID = '846260690124-46sosrvga0r22u0ngq5oh2hiimmdmugo.apps.googleusercontent.com';
+const SERVER_URL = 'http://127.0.0.1:5000'
 
+const GoogleButton = (props) => {
 
-class GoogleButton extends Component {
-   constructor(props) {
-    super(props);
+  const history = useHistory();
+  const {user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken} = useContext(AuthContext)
 
-    const data = JSON.parse(sessionStorage.getItem('userData'));
-    this.state = {
-      user: data ? data.user : null,
-      isLogined: data ? data.isLogined : false
-    }
-
-    this.login = this.login.bind(this);
-    this.handleLoginFailure = this.handleLoginFailure.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
-  }
-
-  login (response) {
+  const login = (response) => {
 
     const that = this;
 
     async function complete_auth() {
       var formData = new FormData();
-      console.log(response)
       formData.set("id_token", response.tokenObj.id_token);
       try {
-          const res = await axios.post('http://127.0.0.1:5000/auth/login', formData)
-          console.log(res.data)
-          const userData = {
-            isLogined: true,
-            user: res.data
-          }
-          console.log(that);
-          that.setState(userData);
-          
-          sessionStorage.setItem("userData", JSON.stringify(userData));
+          const res = await axios.post(SERVER_URL + '/auth/login', formData)
+          setAuthUser(res.data)
+          setAuthToken(res.data.token)
+          setAuthIsLogined(true)
+          history.push("/sections");
   
       } catch(e) {
           console.log(e)
@@ -52,29 +37,24 @@ class GoogleButton extends Component {
     }
   }
 
-  logout (response) {
-        const userData = {
-            isLogined: false,
-            user: null,
-            accessToken: ''
-        };
+  const logout = (response) => {
         axios.get('http://127.0.0.1:5000/auth/logout')
-        this.setState(state => (userData));
-        sessionStorage.setItem("userData", JSON.stringify(userData));
+        setAuthUser(null)
+        setAuthToken(null)
+        setAuthIsLogined(false)
   }
 
-  handleLoginFailure (response) {
+  const handleLoginFailure = (response) => {
     alert('Failed to log in')
   }
 
-  handleLogoutFailure (response) {
+  const handleLogoutFailure = (response) => {
     alert('Failed to log out')
   }
 
-  render() {
-    return (
+  return (
     <div>
-      { this.state.isLogined ?
+      { isLogined ?
         <GoogleLogout
           clientId={ CLIENT_ID }
           buttonText='Logout'
@@ -87,18 +67,18 @@ class GoogleButton extends Component {
                 type="button"
             >
             <span className="btn-inner--icon mr-1">
-                <i className="fa fa-google" aria-hidden="true"></i>    
+                <i className="fab fa-google" aria-hidden="true"></i>    
             </span>
             <span className="btn-inner--text">Logout</span>
             </Button>
           )}
-          onLogoutSuccess={ this.logout }
-          onFailure={ this.handleLogoutFailure }
+          onLogoutSuccess={ logout }
+          onFailure={ handleLogoutFailure }
         >
         </GoogleLogout>: <GoogleLogin
           clientId={ CLIENT_ID }
           buttonText='Login'
-          onSuccess={ this.login }
+          onSuccess={ login }
           render={renderProps => (
             <Button 
                 onClick={renderProps.onClick}
@@ -108,21 +88,21 @@ class GoogleButton extends Component {
                 type="button"
                 >
                 <span className="btn-inner--icon mr-1">
-                    <i className="fa fa-google" aria-hidden="true"></i>
+                    <i className="fab fa-google" aria-hidden="true"></i>
                 </span>
                 <span className="btn-inner--text">Login with Google</span>
                 </Button>
           )}
-          onFailure={ this.handleLoginFailure }
+          onFailure={ handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
         />
       }
-      { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null }
+
+      {/* { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null } */}
 
     </div>
-    )
-  }
+  )
 }
 
 export default GoogleButton;

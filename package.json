@@ -6,9 +6,11 @@
     "@fortawesome/fontawesome-pro": "^5.15.1",
     "@glidejs/glide": "3.4.1",
     "@laylazi/bootstrap-rtl": "^4.5.3-1",
+    "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.3.2",
     "@testing-library/user-event": "7.1.2",
+    "axios": "^0.21.1",
     "bootstrap-v4-rtl": "^4.5.2-1",
     "choices.js": "9.0.1",
     "gulp": "4.0.2",
@@ -22,12 +24,11 @@
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
     "react-github-button": "0.1.11",
+    "react-google-login": "^5.1.20",
     "react-google-maps": "9.4.5",
     "react-router-dom": "5.2.0",
-    "react-scripts": "4.0.1",
-    "reactstrap": "8.5.1",
-    "axios": "^0.21.1",
-    "react-google-login": "^5.1.20"
+    "react-scripts": "3.4.1",
+    "reactstrap": "8.5.1"
   },
   "scripts": {
     "start": "react-scripts start",

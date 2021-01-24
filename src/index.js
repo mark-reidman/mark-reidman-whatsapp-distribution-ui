@@ -30,117 +30,130 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import ResetPage from "views/examples/ResetPage.js";
 import Login from "views/login/Login.js"
+import NewCampaign from 'views/NewCampaign.js'
+import AuthContextProvider from 'oath/AuthContext.js'
+import createContextProvider from 'oath/CreateContextProvider.js'
+
+const ContextProvider = createContextProvider(AuthContextProvider);
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/login" component={ Login }/>
-      <Route path="/index" exact render={(props) => <Index {...props} />} />
-      <Route
-        path="/sections"
-        exact
-        render={(props) => <Sections {...props} />}
-      />
-      <Route
-        path="/presentation"
-        exact
-        render={(props) => <Presentation {...props} />}
-      />
-      <Route
-        path="/about-us"
-        exact
-        render={(props) => <AboutUs {...props} />}
-      />
-      <Route
-          path="/main-page"
+  // <ContextProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" component={ Login }/>
+        <Route path="/index" exact render={(props) => <Index {...props} />} />
+        <Route
+          path="/sections"
           exact
-          render={(props) => <MainPage {...props} />}
-      />
-      <Route
-        path="/account-settings"
-        exact
-        render={(props) => <AccountSettings {...props} />}
-      />
-      <Route
-        path="/blog-post"
-        exact
-        render={(props) => <BlogPost {...props} />}
-      />
-      <Route
-        path="/blog-posts"
-        exact
-        render={(props) => <BlogPosts {...props} />}
-      />
-      <Route
-        path="/chat-page"
-        exact
-        render={(props) => <ChatPage {...props} />}
-      />
-      <Route
-        path="/checkout-page"
-        exact
-        render={(props) => <CheckoutPage {...props} />}
-      />
-      <Route
-        path="/contact-us"
-        exact
-        render={(props) => <ContactUs {...props} />}
-      />
-      <Route
-        path="/ecommerce"
-        exact
-        render={(props) => <Ecommerce {...props} />}
-      />
-      <Route path="/error" exact render={(props) => <Error {...props} />} />
-      <Route
-        path="/error-500"
-        exact
-        render={(props) => <Error500 {...props} />}
-      />
-      <Route
-        path="/invoice-page"
-        exact
-        render={(props) => <InvoicePage {...props} />}
-      />
-      <Route
-        path="/landing-page"
-        exact
-        render={(props) => <LandingPage {...props} />}
-      />
-      <Route
-        path="/login-page"
-        exact
-        render={(props) => <LoginPage {...props} />}
-      />
-      <Route
-        path="/pricing-page"
-        exact
-        render={(props) => <PricingPage {...props} />}
-      />
-      <Route
-        path="/product-page"
-        exact
-        render={(props) => <ProductPage {...props} />}
-      />
-      <Route
-        path="/profile-page"
-        exact
-        render={(props) => <ProfilePage {...props} />}
-      />
-      <Route
-        path="/register-page"
-        exact
-        render={(props) => <RegisterPage {...props} />}
-      />
-      <Route
-        path="/reset-page"
-        exact
-        render={(props) => <ResetPage {...props} />}
-      />
-      {/* <Redirect to="/presentation" /> */}
-      <Redirect to="/Login" />
-      
-    </Switch>
-  </BrowserRouter>,
+          render={(props) => <Sections {...props} />}
+        />
+        <Route
+          path="/new-campaign"
+          exact
+          render={(props) => <NewCampaign {...props} />}
+        />
+        <Route
+          path="/presentation"
+          exact
+          render={(props) => <Presentation {...props} />}
+        />
+        <Route
+          path="/about-us"
+          exact
+          render={(props) => <AboutUs {...props} />}
+        />
+        <Route
+            path="/main-page"
+            exact
+            render={(props) => <MainPage {...props} />}
+        />
+        <Route
+          path="/account-settings"
+          exact
+          render={(props) => <AccountSettings {...props} />}
+        />
+        <Route
+          path="/blog-post"
+          exact
+          render={(props) => <BlogPost {...props} />}
+        />
+        <Route
+          path="/blog-posts"
+          exact
+          render={(props) => <BlogPosts {...props} />}
+        />
+        <Route
+          path="/chat-page"
+          exact
+          render={(props) => <ChatPage {...props} />}
+        />
+        <Route
+          path="/checkout-page"
+          exact
+          render={(props) => <CheckoutPage {...props} />}
+        />
+        <Route
+          path="/contact-us"
+          exact
+          render={(props) => <ContactUs {...props} />}
+        />
+        <Route
+          path="/ecommerce"
+          exact
+          render={(props) => <Ecommerce {...props} />}
+        />
+        <Route path="/error" exact render={(props) => <Error {...props} />} />
+        <Route
+          path="/error-500"
+          exact
+          render={(props) => <Error500 {...props} />}
+        />
+        <Route
+          path="/invoice-page"
+          exact
+          render={(props) => <InvoicePage {...props} />}
+        />
+        <Route
+          path="/landing-page"
+          exact
+          render={(props) => <LandingPage {...props} />}
+        />
+        <Route
+          path="/login-page"
+          exact
+          render={(props) => <LoginPage {...props} />}
+        />
+        <Route
+          path="/pricing-page"
+          exact
+          render={(props) => <PricingPage {...props} />}
+        />
+        <Route
+          path="/product-page"
+          exact
+          render={(props) => <ProductPage {...props} />}
+        />
+        <Route
+          path="/profile-page"
+          exact
+          render={(props) => <ProfilePage {...props} />}
+        />
+        <Route
+          path="/register-page"
+          exact
+          render={(props) => <RegisterPage {...props} />}
+        />
+        <Route
+          path="/reset-page"
+          exact
+          render={(props) => <ResetPage {...props} />}
+        />
+        {/* <Redirect to="/presentation" /> */}
+        <Redirect to="/Login" />
+        
+      </Switch>
+    </BrowserRouter>
+  // </ContextProvider>
+  ,
   document.getElementById("root")
 );

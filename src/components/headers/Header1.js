@@ -1,5 +1,5 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import {Link, useHistory} from "react-router-dom";
 // reactstrap components
 import {
     Button,
@@ -13,10 +13,28 @@ import {
     Row,
     Col,
 } from "reactstrap";
+import StartCampaignModal from 'components/campaign-wizard/StartCampaignModal.js'
 
 // Core Components
 
 function Header1() {
+    const history = useHistory();
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const newCampaignClick = (e) =>{
+        e.preventDefault();
+        //TODO: check if user is logged in
+        //history.push("/new-campaign");
+        setModalOpen(true);
+    }
+
+    const startCampaignWizard = () => {
+
+        history.push("/new-campaign");
+    }
+
+    
+
     return (
         <>
             <header className="header-1">
@@ -41,6 +59,7 @@ function Header1() {
                         >
                             <span className="navbar-toggler-icon"></span>
                         </button>
+                        
 
                         <UncontrolledCollapse
                             id="navbar-header-1"
@@ -153,10 +172,11 @@ function Header1() {
                                     <Button
                                         color="danger"
                                         href="#pablo"
-                                        onClick={(e) => e.preventDefault()}
+                                        onClick={newCampaignClick}
                                     >
-                                        Got it
+                                        התחל קמפיין חדש
                                     </Button>
+                                    <StartCampaignModal modalOpen={modalOpen} setModalOpen={setModalOpen} startCampaignWizard={startCampaignWizard} />
                                 </div>
                             </Col>
                         </Row>
