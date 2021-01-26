@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import WizardContext from './WizardContext.js'
-
+import clsx from 'clsx';
 // reactstrap components
 import {
   Button,
@@ -18,22 +18,24 @@ import {
   Row,
   Col,
   Badge,
-  
   Media,
-  
   Progress,
   Table,
   UncontrolledTooltip,
 } from "reactstrap";
 
 import StartCampaignModal from './FileUploadModal.js'
+import CopyPasteModal from './CopyPasteModal.js'
 
 const StepLoadingMethod = () => {
   const [firstNameFocus, setFirstNameFocus] = React.useState("");
   const [emailFocus, setEmailFocus] = React.useState("");
+  const [distributionList, setDistributionList] = React.useState([]);
   const {name, setName} = useContext(WizardContext)
 
+
   const [fileUplaodOpen, setFileUplaodOpen] = React.useState(false);
+  const [copyPasteOpen, setCopyPasteOpen] = React.useState(false);
 
   return (
     <>
@@ -45,26 +47,27 @@ const StepLoadingMethod = () => {
             href="#pablo"
             onClick={(e) => setFileUplaodOpen(!fileUplaodOpen)}
           >
-            <i class="fal fa-file-excel wizard-big-icon green-color"></i>
+            <i className="fal fa-file-excel wizard-big-icon green-color"></i>
             <p className="title">קובץ אקסל</p>
           </Button>
-          <StartCampaignModal modalOpen={fileUplaodOpen} setModalOpen={setFileUplaodOpen} />
+          <StartCampaignModal modalOpen={fileUplaodOpen} setModalOpen={setFileUplaodOpen} distributionList={distributionList} setDistributionList={setDistributionList} />
           <Button
             className="btn-footer"
             color="secondary"
             href="#pablo"
-            onClick={(e) => e.preventDefault()}
+            onClick={(e) => setCopyPasteOpen(!copyPasteOpen)}
           >
-            <i class="fal fa-stream wizard-big-icon green-color"></i>
+            <i className="fal fa-stream wizard-big-icon green-color"></i>
             <p className="title">העתק/הדבק</p>
           </Button>
+          <CopyPasteModal modalOpen={copyPasteOpen} setModalOpen={setCopyPasteOpen} distributionList={distributionList} setDistributionList={setDistributionList}  />
           <Button
             className="btn-footer"
             color="secondary"
             href="#pablo"
-            onClick={(e) => e.preventDefault()}
+            onClick={(e) => console.log("")}
           >
-            <i class="fal fa-cloud-download wizard-big-icon green-color"></i>
+            <i className="fal fa-cloud-download wizard-big-icon green-color"></i>
             <p className="title">רשימות שמורות</p>
           </Button>
         </Col>
@@ -74,8 +77,11 @@ const StepLoadingMethod = () => {
           <Table className="align-items-center table-flush wizard-table" responsive>
             <thead className="thead-light">
               <tr>
-                <th className="sort" data-sort="type" scope="col">
+              <th className="sort" data-sort="type" scope="col">
                   סוג
+                </th>
+                <th className="sort" data-sort="type" scope="col">
+                  שם
                 </th>
                 <th className="sort" data-sort="amount" scope="col">
                   כמות
@@ -87,155 +93,54 @@ const StepLoadingMethod = () => {
               </tr>
             </thead>
             <tbody className="list">
-              <tr>
-                <th scope="row">
-                  <Media className="align-items-center">
-                    <i class="fal fa-file-excel wizard-big-icon"></i>                    
-                    <Media body>
-                      <span className="name mb-0 text-sm">file_name_x_y.csv</span>
-                    </Media>
-                  </Media>
-                </th>
-                <td className="budget">450</td>
-                <td>
-                  <Badge className="badge-dot mr-4">
-                    <i className="bg-warning"></i>
-                    <span className="status">pending</span>
-                  </Badge>
-                </td>
-                <td className="text-right">
-                  <Button
-                        className="btn-icon-only rounded-circle"
-                        color="danger"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-trash-alt"></i>
-                        </span>
-                  </Button>
-                  <Button
-                        className="btn-icon-only rounded-circle"
-                        color="primary"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-edit"></i>
-                        </span>
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                <Media className="align-items-center">
-                    <i class="fal fa-file-excel wizard-big-icon"></i>                    
-                    <Media body>
-                      <span className="name mb-0 text-sm">file_name_z_k_u.csv</span>
-                    </Media>
-                  </Media>
-                </th>
-                <td className="budget">2324</td>
-                <td>
-                  <Badge className="badge-dot mr-4">
-                    <i className="bg-success"></i>
-                    <span className="status">completed</span>
-                  </Badge>
-                </td>
-                <td className="text-right">
-                <Button
-                        className="btn-icon-only rounded-circle"
-                        color="danger"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-trash-alt"></i>
-                        </span>
-                  </Button>
-                  <Button
-                        className="btn-icon-only rounded-circle"
-                        color="primary"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-edit"></i>
-                        </span>
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                <Media className="align-items-center">
-                    <i class="fal fa-stream wizard-big-icon"></i>                    
-                    <Media body>
-                      <span className="name mb-0 text-sm">copy paste list</span>
-                    </Media>
-                  </Media>
-                </th>
-                <td className="budget">30</td>
-                <td>
-                  <Badge className="badge-dot mr-4">
-                    <i className="bg-danger"></i>
-                    <span className="status">delayed</span>
-                  </Badge>
-                </td>
-                <td className="text-right">
-                <Button
-                        className="btn-icon-only rounded-circle"
-                        color="danger"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-trash-alt"></i>
-                        </span>
-                  </Button>
-                  <Button
-                        className="btn-icon-only rounded-circle"
-                        color="primary"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-edit"></i>
-                        </span>
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <Media className="align-items-center">
-                      <i class="fal fa-cloud-download wizard-big-icon"></i>                    
-                      <Media body>
-                        <span className="name mb-0 text-sm">רשימה שמורה 1</span>
-                      </Media>
-                    </Media>
-                </th>
-                <td className="budget">4561</td>
-                <td>
-                  <Badge className="badge-dot mr-4">
-                    <i className="bg-info"></i>
-                    <span className="status">on schedule</span>
-                  </Badge>
-                </td>
-                <td className="text-right">
-                <Button
-                        className="btn-icon-only rounded-circle"
-                        color="danger"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-trash-alt"></i>
-                        </span>
-                  </Button>
-                  <Button
-                        className="btn-icon-only rounded-circle"
-                        color="primary"
-                        type="button"
-                      >
-                        <span className="btn-inner--icon">
-                          <i class="fal fa-edit"></i>
-                        </span>
-                  </Button>
-                </td>
-              </tr>
-              </tbody>
+            {distributionList.length === 0 && <tr key="1"><td colSpan="4">לא נבחרו רשימות</td></tr>}
+            {
+              Object.keys(distributionList).map((key) => {
+                  return(
+                    distributionList[key].map((item, ind) => {
+                      return(<tr>
+                        <td scope="row">
+                          <Media className="align-items-center">
+                            <i className={clsx("fal", "wizard-big-icon", 
+                              (key == "files" && item.fileType === "excel") ? "fa-file-excel" : "",
+                              (key == "copypaste") ? "fa-stream" : "", 
+                              (key == "savedList" === "fa-cloud-download") ? "fa-stream" : "")}></i>
+                        </Media>
+                        </td>
+                        <td className="budget">{item.fileName + " - " + item.column}</td>
+                        <td className="budget">{item.data.length}</td>
+                        <td>
+                          <Badge className="badge-dot mr-4">
+                            <i className="bg-warning"></i>
+                            <span className="status">pending</span>
+                          </Badge>
+                        </td>
+                        <td className="text-right">
+                          <Button
+                                className="btn-icon-only rounded-circle"
+                                color="danger"
+                                type="button"
+                              >
+                                <span className="btn-inner--icon">
+                                  <i className="fal fa-trash-alt"></i>
+                                </span>
+                          </Button>
+                          <Button
+                                className="btn-icon-only rounded-circle"
+                                color="primary"
+                                type="button"
+                              >
+                                <span className="btn-inner--icon">
+                                  <i className="fal fa-edit"></i>
+                                </span>
+                          </Button>
+                        </td>
+                      </tr>)
+                    })
+                  )
+                })  
+            }
+            </tbody>
           </Table>
         </Col>
       </Row>

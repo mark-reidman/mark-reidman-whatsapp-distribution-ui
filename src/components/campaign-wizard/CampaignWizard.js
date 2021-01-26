@@ -152,11 +152,14 @@ export default function CampaignWizard() {
 
     // Campaign data variables
     const [name, setName] = React.useState("")
+    const [distributionList, setDistributionList] = React.useState([])
 
     return (
         <WizardContext.Provider value={{
             name,
-            setName
+            setName,
+            distributionList,
+            setDistributionList
             }}>
               <>
 
