@@ -45,7 +45,7 @@ const StepLoadingMethod = () => {
             }}>
         <Col className="mb-md-4 mb-lg-0 align-center" lg="12" md="12">
           <Button
-            className="btn-footer"
+            className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
             onClick={(e) => setFileUplaodOpen(!fileUplaodOpen)}
@@ -55,7 +55,7 @@ const StepLoadingMethod = () => {
           </Button>
           <StartCampaignModal modalOpen={fileUplaodOpen} setModalOpen={setFileUplaodOpen} distributionList={distributionList} setDistributionList={setDistributionList} />
           <Button
-            className="btn-footer"
+            className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
             onClick={(e) => setCopyPasteOpen(!copyPasteOpen)}
@@ -65,7 +65,7 @@ const StepLoadingMethod = () => {
           </Button>
           <CopyPasteModal modalOpen={copyPasteOpen} setModalOpen={setCopyPasteOpen} distributionList={distributionList} setDistributionList={setDistributionList}  />
           <Button
-            className="btn-footer"
+            className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
             onClick={(e) => console.log("")}
@@ -110,8 +110,8 @@ const StepLoadingMethod = () => {
                               (key == "savedList" === "fa-cloud-download") ? "fa-stream" : "")}></i>
                         </Media>
                         </td>
-                        <td className="budget">{item.fileName + " - " + item.column}</td>
-                        <td className="budget">{item.data.length}</td>
+                        <td className="name mb-0 text-sm">{item.fileName + " - " + item.column}</td>
+                        <td className="name mb-0 text-sm">{item.data.length}</td>
                         <td>
                           <Badge className="badge-dot mr-4">
                             <i className="bg-warning"></i>

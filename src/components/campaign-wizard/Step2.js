@@ -23,7 +23,7 @@ import {
 const Step2 = () => {
   const [firstNameFocus, setFirstNameFocus] = React.useState("");
   const [emailFocus, setEmailFocus] = React.useState("");
-  const [name, setName] = useContext(WizardContext)
+  const {name, setName} = useContext(WizardContext)
 
   return (
     <>
