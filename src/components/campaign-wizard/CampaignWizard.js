@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -22,114 +22,117 @@ import {
     Row,
     Col,
     Modal,
-  } from "reactstrap";
+} from "reactstrap";
 
 
 const ColorlibConnector = withStyles({
-  alternativeLabel: {
-    top: 22,
-  },
-  active: {
-    '& $line': {
-      backgroundColor: '#172b4d',
-      
+    alternativeLabel: {
+        top: 22,
     },
-  },
-  completed: {
-    '& $line': {
-        backgroundColor: '#172b4d',
+    active: {
+        '& $line': {
+            backgroundColor: '#172b4d',
+
+        },
     },
-  },
-  line: {
-    height: 6,
-    border: 0,
-    backgroundColor: '#abb3bd',
-    borderRadius: 1,
-    zIndex: 0
-  },
+    completed: {
+        '& $line': {
+            backgroundColor: '#172b4d',
+        },
+    },
+    line: {
+        height: 6,
+        border: 0,
+        backgroundColor: '#abb3bd',
+        borderRadius: 1,
+        zIndex: 0,
+        marginLeft: '6px',
+        marginRight: '6px',
+        marginTop: '3px'
+    },
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
 
-  active: {
-    zIndex:1,
-    borderColor:'#172b4d',
-    borderWidth: '6px',
-  },
-  completed: {
-    zIndex:1,
-    borderColor:'#172b4d',
-    borderWidth: '6px',
-  },
-  regular: {
-      zIndex:1,
-      borderColor:'#abb3bd',
-      borderWidth: '6px',
-  }
+    active: {
+        zIndex: 1,
+        borderColor: '#172b4d',
+        borderWidth: '2px',
+    },
+    completed: {
+        zIndex: 1,
+        borderColor: '#172b4d',
+        borderWidth: '2px',
+    },
+    regular: {
+        zIndex: 1,
+        borderColor: '#abb3bd',
+        borderWidth: '2px',
+    }
 
 });
 
 function ColorlibStepIcon(props) {
-  const classes = useColorlibStepIconStyles();
-  const { active, completed, error } = props;
+    const classes = useColorlibStepIconStyles();
+    const {active, completed, error} = props;
 
-  const icons = {
-    1: "fal fa-users",
-    2: "fal fa-font",
-    3: "fal fa-keyboard",
-    4: "fal fa-comment-alt-dots",
-    5: "fal fa-paper-plane",
-    6: "fal fa-credit-card"
-  };
+    const icons = {
+        1: "fal fa-users",
+        2: "fal fa-font",
+        3: "fal fa-keyboard",
+        4: "fal fa-comment-alt-dots",
+        5: "fal fa-paper-plane",
+        6: "fal fa-credit-card"
+    };
 
-  return (
-      <>
-        <Button
-            className={clsx("btn-icon-only", "rounded-circle", 
-            (!completed && !active && !error) && classes.regular,
-            (!completed && active && !error) && classes.active,
-            (completed && !active && !error) && classes.completed
-            )}
-            color={clsx((!completed && !active && !error) && "Secondary", (!completed && active && !error) && "default", (completed && !active && !error) && "Secondary", error && "danger")}
-            size="lg"
-            type="button"
-        >
+    return (
+        <>
+            <Button
+                className={clsx("btn-icon-only", "rounded-circle",
+                    (!completed && !active && !error) && classes.regular,
+                    (!completed && active && !error) && classes.active,
+                    (completed && !active && !error) && classes.completed
+                )}
+                color={clsx((!completed && !active && !error) && "Secondary", (!completed && active && !error) && "default", (completed && !active && !error) && "Secondary", error && "danger")}
+                size="lg"
+                type="button"
+            >
             <span className="btn-inner--icon">
                 <i className={clsx(icons[String(props.icon)])}></i>
             </span>
-        </Button>
-    </>
-  );
+            </Button>
+        </>
+    );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // width: '100%',
-  },
-  button: {
-    // marginRight: theme.spacing(1),
-  },
-  instructions: {
-    // marginTop: theme.spacing(1),
-    // marginBottom: theme.spacing(1),
-  },
+    root: {
+        // width: '100%',
+    },
+    button: {
+        // marginRight: theme.spacing(1),
+    },
+    instructions: {
+        // marginTop: theme.spacing(1),
+        // marginBottom: theme.spacing(1),
+    },
 }));
 
 function getSteps() {
-  return ['רשימות הפצה', 'תוכן הודעה' , 'שלב שלישי', 'הערות נוספות', 'בדוק הכל', 'שלם ושלח'];
+    return ['רשימות הפצה', 'תוכן הודעה', 'שלב שלישי', 'הערות נוספות', 'בדוק הכל', 'שלם ושלח'];
 }
 
-const getStepComponent = (step) =>{
+const getStepComponent = (step) => {
     switch (step) {
         case 0:
-          return <StepLoadingMethod/>;
+            return <StepLoadingMethod/>;
         case 1:
-          return <Step2/>;
+            return <Step2/>;
         case 2:
-          return 'This is the bit I really care about!';
+            return 'This is the bit I really care about!';
         default:
-          return 'Unknown step';
-      }
+            return 'Unknown step';
+    }
 }
 
 export default function CampaignWizard() {
@@ -138,15 +141,15 @@ export default function CampaignWizard() {
     const steps = getSteps();
 
     const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
     const handleReset = () => {
-    setActiveStep(0);
+        setActiveStep(0);
     };
 
 
@@ -163,52 +166,52 @@ export default function CampaignWizard() {
             }}>
               <>
 
-              <Container className="pt-5">
+                <Container className="pt-5">
                     <Row>
                         <Col className="d-flex justify-content-center flex-column wizard-container" md="12">
-                            <div className="card card-raised wizard-card">                                    
+                            <div className="card card-raised wizard-card">
                                 <div className="card-body">
-                                  <div className="wizard-header">
-                                    <h3>Campaign name here</h3>
-                                    <p className="category">some more decription below</p>
-                                  </div>
-                                    <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+                                    <div className="wizard-header">
+                                        <h3>Campaign name here</h3>
+                                        {/*<p className="category">some more decription below</p>*/}
+                                    </div>
+                                    <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector/>}>
                                         {steps.map((label) => (
-                                        <Step key={label}>
-                                            <StepLabel StepIconComponent={ColorlibStepIcon}><p >{label}</p></StepLabel>
-                                        </Step>
+                                            <Step key={label}>
+                                                <StepLabel StepIconComponent={ColorlibStepIcon}><p>{label}</p></StepLabel>
+                                            </Step>
                                         ))}
                                     </Stepper>
                                     <div className="tab-content">
-                                      {getStepComponent(activeStep)}
+                                        {getStepComponent(activeStep)}
                                     </div>
                                     <div className="wizard-footer"></div>
-                                      <Button
-                                            variant="contained"
-                                            color="primary"
-                                     
-                                            onClick={(activeStep === (steps.length - 1)) ? handleReset : handleNext}
-                                            className={clsx(classes.button, "pull-right")}
-                                        > 
-                                            <span className="btn-inner--text">&nbsp;&nbsp;&nbsp;&nbsp; {(activeStep === steps.length - 1 ) ? 'שמור' : 'הבא'}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            <span className="btn-inner--icon">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+
+                                        onClick={(activeStep === (steps.length - 1)) ? handleReset : handleNext}
+                                        className={clsx(classes.button, "pull-right")}
+                                    >
+                                        <span className="btn-inner--text">&nbsp;&nbsp;&nbsp;&nbsp; {(activeStep === steps.length - 1) ? 'שמור' : 'הבא'}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span className="btn-inner--icon">
                                               <i className={activeStep === steps.length - 1 ? "fal fa-check" : "fal fa-chevron-right"}></i>
                                             </span>
-                                        </Button>
-                                        <Button disabled={activeStep === 0} onClick={handleBack} 
-                                          className={clsx(classes.button, "pull-left")}>
+                                    </Button>
+                                    <Button disabled={activeStep === 0} onClick={handleBack}
+                                            className={clsx(classes.button, "pull-left")}>
                                             <span className="btn-inner--icon">
                                               <i className="fal fa-chevron-left"></i>
                                             </span>
-                                            <span className="btn-inner--text">&nbsp;&nbsp;&nbsp;&nbsp;חזור&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            
-                                        </Button>
-                                    </div>
+                                        <span className="btn-inner--text">&nbsp;&nbsp;&nbsp;&nbsp;חזור&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                                    </Button>
+                                </div>
                             </div>
                         </Col>
                     </Row>
                 </Container>
-              </>
+            </>
         </WizardContext.Provider>
     );
 }

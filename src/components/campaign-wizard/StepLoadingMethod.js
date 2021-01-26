@@ -39,7 +39,10 @@ const StepLoadingMethod = () => {
 
   return (
     <>
-      <Row>
+      <Row style={{
+                marginTop: '60px',
+                marginBottom: '20px',
+            }}>
         <Col className="mb-md-4 mb-lg-0 align-center" lg="12" md="12">
           <Button
             className="btn-footer"
