@@ -10,7 +10,7 @@ const CampaignSection = ({isModalOpen}) => {
                     <div
                         className="page-header-image"
                         style={{
-                            backgroundImage: "url(" + require("assets/img/ill/p2.svg") + ")",
+                            // backgroundImage: "url(" + require("assets/img/ill/p2.svg") + ")",
                         }}
                     ></div>
         <CampaignWizard/>
