@@ -31,13 +31,11 @@ import RegisterPage from "views/examples/RegisterPage.js";
 import ResetPage from "views/examples/ResetPage.js";
 import Login from "views/login/Login.js"
 import NewCampaign from 'views/NewCampaign.js'
-import AuthContextProvider from 'oath/AuthContext.js'
-import createContextProvider from 'oath/CreateContextProvider.js'
+import {AuthContextProvider} from 'oath/AuthContext.js'
 
-const ContextProvider = createContextProvider(AuthContextProvider);
 
 ReactDOM.render(
-  // <ContextProvider>
+  <AuthContextProvider>
     <BrowserRouter>
       <Switch>
         <Route path="/login" component={ Login }/>
@@ -153,7 +151,7 @@ ReactDOM.render(
         
       </Switch>
     </BrowserRouter>
-  // </ContextProvider>
+  </AuthContextProvider>
   ,
   document.getElementById("root")
 );

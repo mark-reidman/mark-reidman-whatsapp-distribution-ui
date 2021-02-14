@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {Link, useHistory} from "react-router-dom";
 // reactstrap components
 import {
@@ -14,26 +14,34 @@ import {
     Col,
 } from "reactstrap";
 import StartCampaignModal from 'components/campaign-wizard/StartCampaignModal.js'
-
+import {AuthContext} from '../../oath/AuthContext.js'
+import { useLocation } from "react-router-dom";
 // Core Components
 
 function Header1() {
     const history = useHistory();
     const [modalOpen, setModalOpen] = useState(false);
+    const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken]  = useContext(AuthContext);
+    const location = useLocation();
 
     const newCampaignClick = (e) =>{
-        e.preventDefault();
-        //TODO: check if user is logged in
-        //history.push("/new-campaign");
-        setModalOpen(true);
+        if(isLogined === true )
+            setModalOpen(true);
+        else
+            history.push({pathname: "/login", state: { redirect: "/sections" }});
     }
 
-    const startCampaignWizard = () => {
-
-        history.push("/new-campaign");
+    const startCampaignWizard = (id, name, field) => {
+        history.push({pathname: "/new-campaign", state: { id: id, name: name, field: field }});
     }
 
-    
+    useEffect(() => {
+        console.log(location.state)
+        if(location.state != undefined){
+            if(location.state.redirected != undefined)
+                setModalOpen(true)
+        }
+     }, [location]);
 
     return (
         <>

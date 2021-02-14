@@ -12,7 +12,7 @@ import {
 
 // Core Components
 
-function DateTime() {
+const DateTime = ({value, setValue, initialValue}) => {
   const [focus, setFocus] = React.useState("");
   return (
     <>
@@ -24,6 +24,9 @@ function DateTime() {
             </InputGroupText>
           </InputGroupAddon>
           <ReactDatetime
+            value={value}
+            initialValue={initialValue}
+            onChange={(e)=> setValue(new Date(e))}
             inputProps={{
               placeholder: "Date & Time",
               onFocus: () => setFocus("focused"),

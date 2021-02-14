@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { ExcelRenderer } from "react-excel-renderer";
 // reactstrap components
 import { Button, Label, FormGroup, Form, Input, Modal, Table, Progress, Badge } from "reactstrap";
-import { phoneNumberCorrection, phoneNumberExtract } from './utils.js'
+import { phoneNumberCorrection, phoneNumberExtract, uniqueID } from './utils.js'
 
 // Core Components
 
 const CopyPasteModal = ({ modalOpen, setModalOpen, distributionList, setDistributionList }) => {
+    
+    const getCleanDataObj = () => {return { header: "טלפון", data: [] }}
     const [errorMessage, setErrorMessage] = useState("");
-    const [data, setData] = useState({ header: "טלפון", data: [] });
+    const [data, setData] = useState(getCleanDataObj());
     const [inputValue, setInputValue] = useState("");
-
-    // (050) 759-8968
-    // (052) 708-0145
-
 
     const inputChangeHandler = (event) => {
         let val = event.target.value;
@@ -53,30 +50,26 @@ const CopyPasteModal = ({ modalOpen, setModalOpen, distributionList, setDistribu
     };
 
     const clsoeModal = () => {
-        setData([])
+        setData(getCleanDataObj())
         setModalOpen(!modalOpen)
     }
 
     const addList = () => {
-        // let phoneLists = []
-        // Object.keys(data).map((key) => {
-        //     if (data[key].isSelectedByUser) {
-        //         phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[key].header, "data": data[key].colData})
-        //     }
-        // });
-        // let tmp = distributionList;
-        // if( tmp["files"] != undefined){
-        //     tmp["files"] = tmp["files"].concat(phoneLists)
-        // }
-        // else {
-        //     tmp["files"] = phoneLists
-        // }
-        // setDistributionList({
-        //     ...tmp
-        //   });
+        let tmp = distributionList;
+        if(data.data.length > 0) {
+            if( tmp["copyPaste"] != undefined) {
+                tmp["copyPaste"] = tmp["copyPaste"].concat({"data": data.data, id: uniqueID()})
+            }
+            else {
+                tmp["copyPaste"] = [{"data": data.data, id: Date.now()}]
+            }
+            setDistributionList({
+                ...tmp
+            });
+        }
         setModalOpen(!modalOpen)
         setInputValue("")
-        setData([])
+        setData(getCleanDataObj())
         setErrorMessage("")
     }
 

@@ -1,13 +1,33 @@
-import React from "react";
-
+import React, {useState} from "react";
+import {OrderService} from '../../services/OrderService.js'
 // reactstrap components
 import { Button, Label, FormGroup, Form, Input, Modal } from "reactstrap";
 
 // Core Components
 
 const StartCampaignModal = ({modalOpen, setModalOpen, startCampaignWizard}) => {
-  // const [modalOpen, setModalOpen] = React.useState(false);
-  console.log(modalOpen);
+  const [campaignName, setCampaignName] = useState("");
+  const [campaignField, setCampaignField] = useState("");
+
+  const orderService = new OrderService()
+
+  const setCampaignNameButton = (e) => {
+    setCampaignName(e.target.value);
+  }
+
+  const setCampaignFieldDropDown = (e) => {
+    console.log(e.target.value);
+    setCampaignField(e.target.value);
+  }
+
+  async function startCampaignButton () {
+    
+    await orderService.createNewOrder({'campaignName': campaignName, 'campaignField': campaignField}).then((res) => { 
+      
+      startCampaignWizard(res.data.id, campaignName, campaignField)});
+  }
+
+  
   return (
     <>
       <Modal
@@ -17,7 +37,7 @@ const StartCampaignModal = ({modalOpen, setModalOpen, startCampaignWizard}) => {
       >
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLabel">
-            התחל קמפיים חדש
+            התחל קמפיין חדש
           </h5>
           <button
             aria-label="Close"
@@ -37,7 +57,8 @@ const StartCampaignModal = ({modalOpen, setModalOpen, startCampaignWizard}) => {
               <FormGroup>
                 <Input
                   className="form-control-alternative"
-                  defaultValue=""
+                  value={campaignName}
+                  onChange={setCampaignNameButton}
                   id="campaign-name"
                   type="text"
                 ></Input>
@@ -51,15 +72,18 @@ const StartCampaignModal = ({modalOpen, setModalOpen, startCampaignWizard}) => {
                 data-trigger=""
                 id="campaign-tag"
                 name="campaign-tag"
+                value={campaignField}
+                onChange={setCampaignFieldDropDown}
                 type="select"
               >
-                <option placeholder="true">Single Option</option>
-                <option defaultValue="politics">פוליטיקה</option>
-                <option defaultValue="realestate">נדל"ן</option>
-                <option defaultValue="fashion">אופנה</option>
-                <option defaultValue="other">אחר</option>
+                <option placeholder="please select">Single Option</option>
+                <option value="politics">פוליטיקה</option>
+                <option value="realestate">נדל"ן</option>
+                <option value="fashion">אופנה</option>
+                <option value="other">אחר</option>
               </Input>
-              <Button color="primary" type="button" onClick={startCampaignWizard}>
+              <br/>
+              <Button className="pull-right" color="primary" type="button" onClick={startCampaignButton}>
                 צור קמפיין
               </Button>
             </FormGroup>

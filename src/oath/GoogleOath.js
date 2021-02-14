@@ -1,31 +1,36 @@
 import React, { useContext, useState } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import AuthContext from './AuthContext'
+import {AuthContext} from './AuthContext'
 
-const CLIENT_ID = '846260690124-46sosrvga0r22u0ngq5oh2hiimmdmugo.apps.googleusercontent.com';
-const SERVER_URL = 'http://127.0.0.1:5000'
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const SERVER_URL = process.env.REACT_APP_API_URL;
 
-const GoogleButton = (props) => {
+const GoogleButton = ({redirect, rememberme}) => {
 
   const history = useHistory();
-  const {user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken} = useContext(AuthContext)
+  const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken] = useContext(AuthContext);
+  const [isGetSigninProgress, setIsGetSigninProgress] = useState(false);
 
   const login = (response) => {
 
     const that = this;
+    setIsGetSigninProgress(true)
 
     async function complete_auth() {
       var formData = new FormData();
       formData.set("id_token", response.tokenObj.id_token);
       try {
-          const res = await axios.post(SERVER_URL + '/auth/login', formData)
-          setAuthUser(res.data)
-          setAuthToken(res.data.token)
-          setAuthIsLogined(true)
-          history.push("/sections");
+          const res = await axios.post(SERVER_URL + '/auth/glogin', formData);
+          setAuthUser(res.data);
+          setAuthIsLogined(true);
+          setIsGetSigninProgress(false)
+          setTimeout(()=>{
+            history.push({pathname: redirect, state: {redirected: true}});
+          }, 500)
+          
   
       } catch(e) {
           console.log(e)
@@ -38,9 +43,8 @@ const GoogleButton = (props) => {
   }
 
   const logout = (response) => {
-        axios.get('http://127.0.0.1:5000/auth/logout')
+        axios.get(SERVER_URL + '/auth/logout')
         setAuthUser(null)
-        setAuthToken(null)
         setAuthIsLogined(false)
   }
 
@@ -54,7 +58,7 @@ const GoogleButton = (props) => {
 
   return (
     <div>
-      { isLogined ?
+      { isLogined && user != null && user.auth_provider === "google" ?
         <GoogleLogout
           clientId={ CLIENT_ID }
           buttonText='Logout'
@@ -66,31 +70,36 @@ const GoogleButton = (props) => {
                 color="primary"
                 type="button"
             >
-            <span className="btn-inner--icon mr-1">
-                <i className="fab fa-google" aria-hidden="true"></i>    
-            </span>
-            <span className="btn-inner--text">Logout</span>
+              <span className="btn-inner--icon mr-1">
+                  <i className="fab fa-google" aria-hidden="true"></i>    
+              </span>
+              <span className="btn-inner--text">Logout</span>
             </Button>
           )}
           onLogoutSuccess={ logout }
           onFailure={ handleLogoutFailure }
         >
-        </GoogleLogout>: <GoogleLogin
+        </GoogleLogout>
+        : 
+        <GoogleLogin
           clientId={ CLIENT_ID }
           buttonText='Login'
           onSuccess={ login }
           render={renderProps => (
             <Button 
                 onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
+                disabled={renderProps.disabled || isGetSigninProgress || (isLogined && user != null && user.auth_provider !== "google")}
                 className="btn-1" color="primary" outline type="button"
                 color="primary"
                 type="button"
                 >
-                <span className="btn-inner--icon mr-1">
-                    <i className="fab fa-google" aria-hidden="true"></i>
-                </span>
-                <span className="btn-inner--text">Login with Google</span>
+                  <span className="btn-inner--icon mr-1">
+                      
+                      {!isGetSigninProgress ? <i className="fab fa-google" aria-hidden="true"></i> : <Spinner color="primary" type="grow" size="sm"></Spinner>}
+                      
+                  </span>
+                  <span className="btn-inner--text">Google</span>
+                  
                 </Button>
           )}
           onFailure={ handleLoginFailure }

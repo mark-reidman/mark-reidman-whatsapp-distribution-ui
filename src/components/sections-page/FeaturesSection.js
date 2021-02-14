@@ -19,12 +19,12 @@ function FeaturesSection() {
     <>
       <div className="cd-section" id="features">
         <Feature1 />
-        {/*<Feature2 />*/}
-        {/*<Feature3 />*/}
-        {/*<Feature4 />*/}
-        {/*<Feature5 />*/}
-        {/*<Feature6 />*/}
-        {/*<Feature7 />*/}
+        <Feature2 />
+        <Feature3 />
+        <Feature4 />
+        <Feature5 />
+        <Feature6 />
+        <Feature7 />
       </div>
     </>
   );

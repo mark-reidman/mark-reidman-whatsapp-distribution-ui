@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ExcelRenderer } from "react-excel-renderer";
 // reactstrap components
 import { Button, Label, FormGroup, Form, Input, Modal, Table, Progress, Badge } from "reactstrap";
-import { phoneNumberCorrection } from './utils.js'
+import { phoneNumberCorrection, uniqueID} from './utils.js'
 
 // Core Components
 
@@ -101,7 +101,7 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
         let phoneLists = []
         Object.keys(data).map((key) => {
             if (data[key].isSelectedByUser) {
-                phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[key].header, "data": data[key].colData})
+                phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[key].header, "data": data[key].colData, id: uniqueID()})
             }
         });
         let tmp = distributionList;

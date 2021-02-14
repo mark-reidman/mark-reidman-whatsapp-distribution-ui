@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 // reactstrap components
 // import {
 //
 // } from "reactstrap";
+import {OrderService} from '../services/OrderService.js'
 
 // Core Components
 import DemoNavbar from "components/navbars/DemoNavbar.js";
@@ -20,10 +21,12 @@ import TestimonialsSection from "components/sections-page/TestimonialsSection.js
 import ContactUsSection from "components/sections-page/ContactUsSection.js";
 import TablesSection from "components/sections-page/TablesSection.js";
 import AccordionsSection from "components/sections-page/AccordionsSection.js";
-import CampaignSection from "components/sections-page/CampaignSection.js"
+import MyCampaignsSection from "components/sections-page/MyCampaignsSection.js"
 
 function Sections() {
-    React.useEffect(() => {
+    const [shouldShowMyCampaignsSection, setShouldShowMyCampaignsSection] = useState(false);
+
+    useEffect(() => {
         document.body.classList.add("sections-page");
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
@@ -40,21 +43,32 @@ function Sections() {
             document.body.classList.remove("sections-page");
         };
     });
+
+    useEffect(() => {
+        let service = new OrderService();
+
+        service.getOrdersCount().then((res) => {
+            if (res.data.total > 0) 
+                setShouldShowMyCampaignsSection(true);
+        });
+
+     },[]);
+
     return (
         <>
             <DemoNavbar type="dark"/>
             <div className="wrapper">
                 <HeadersSection/>
-                <CampaignSection/>
-                <FeaturesSection/>
+                {shouldShowMyCampaignsSection ? <MyCampaignsSection/> : <></>}
+                {/* <FeaturesSection/> */}
                 {/*<BlogsSection/>*/}
                 {/*<TeamsSection/>*/}
                 {/*<ProjectsSection/>*/}
                 <PricingsSection/>
                 {/*<TestimonialsSection/>*/}
                 {/* <ContactUsSection/> */}
-                {/*<TablesSection/>*/}
-                {/*<AccordionsSection/>*/}
+                {/* <TablesSection/> */}
+                {/* <AccordionsSection/> */}
                 <DemoFooter/>
             </div>
         </>

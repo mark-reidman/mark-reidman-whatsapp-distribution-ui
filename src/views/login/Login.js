@@ -1,20 +1,9 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-// import GLoginButton from 'oath/GLoginButton.js'
-// import GLogoutButton from 'oath/GLogoutButton.js'
-// import { useGoogleLogin } from 'react-google-login'
 
 // reactstrap components
 import {
-  Button,
   Card,
-  CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col
@@ -23,17 +12,42 @@ import {
 // core components
 import NavbarPrimary from "components/navbars/NavbarPrimary.js";
 import Footer1 from "components/footers/Footer1.js";
-// import GLogoutHook from "oath/GLogoutHook";
-// import GLogoutHook from 'oath/GLogoutHook.js'
 import GoogleButton from 'oath/GoogleOath.js'
+import FacebookButton from 'oath/FacebookOath.js'
 
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.rememberMeToggle = this.rememberMeToggle.bind(this)
+    this.state = {
+      rememberme: false
+    }
+  }
+
+  rememberMeToggle(e) {
+    
+    if (!this.state.rememberme) {
+      this.setState({
+        rememberme: true
+      })
+    }
+    else {
+      this.setState({
+        rememberme: false
+      })
+    }
+
+    
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+
   render() {
     return (
       <>
@@ -57,60 +71,42 @@ class Login extends React.Component {
                     <CardBody className="px-lg-5 py-lg-5">
                     <div className="text-center">
                       <h5 className="display-3 font-weight-bold">
-                        Sign in with
+                        !ברוך הבא
                       </h5>
+                      <span className="display-6 font-weight-bold">
+                        להזדהות בחר באחת מהאפשרויות
+                      </span>
                     </div>
                     <div className="btn-wrapper text-center">
-                        {/* <GLoginButton /> */}
                         <br/>                     
                         <br/>
-                        <GoogleButton/>
-                        {/* <GLogoutButton /> */}
-                        {/* <GLogoutHook /> */}
+                        <Row>
+                          <Col md="6">
+                            <GoogleButton redirect="sections" className="pull-right" rememberme={this.state.rememberme} />
+                          </Col>
+                          <Col md="6">
+                            <FacebookButton redirect="sections" className="pull-left" rememberme={this.state.rememberme}/>
+                          </Col>
+                        </Row>
                         <br/>
                         <br/>
-                        <a
-                          className="text-light"
-                          href="/profile-page"
-                          // onClick={e => e.preventDefault()}
-                        >
-                          <small>Create new account</small>
-                        </a>
                       </div>
-                      <div className="custom-control custom-control-alternative custom-checkbox">
-                        <input
-                          className="custom-control-input"
-                          id=" customCheckLogin"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor=" customCheckLogin">
-                          <span>Remember me</span>
-                        </label>
-                      </div>                      
+                      <Row>
+                        <Col md="10" className="align-right" style={{ padding: "0px"}}>
+                          <span>זכור אותי</span>
+                        </Col>
+                        <Col md="2">
+                            <div className="custom-control custom-checkbox">
+                                <input type="checkbox" className="custom-control-input" id="signaturCheckbox" 
+                                    checked={this.state.rememberme} onChange={this.rememberMeToggle} />
+                                <label className="custom-control-label" htmlFor="signaturCheckbox">
+                                    <span></span>
+                                </label>
+                            </div>        
+                        </Col>
+                    </Row>                    
                     </CardBody>
                   </Card>
-                  <Row className="mt-3">
-                    <Col xs="6">
-                      <a
-                        className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <small>Forgot password?</small>
-                      </a>
-                    </Col>
-                    <Col className="text-right" xs="6">
-                      <a
-                        className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <small>Create new account</small>
-                      </a>
-                    </Col>
-                  </Row>
                 </Col>
               </Row>
             </Container>
