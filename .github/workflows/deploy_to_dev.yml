@@ -34,7 +34,7 @@ jobs:
         username: ${{ secrets.NEXTSALE_DEV_SSH_USER }}
         password: ${{ secrets.NEXTSALE_DEV_SSH_PASS }}
         port: 22
-        source: "buid/*"
+        source: "build/*"
         target: "/opt/whatsapp-distribution/app"
         overwrite : true
         rm: true
