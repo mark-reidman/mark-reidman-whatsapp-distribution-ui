@@ -19,7 +19,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: NPM isntall
-      run: npm install
+      run: |
+        npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+        npm install
     - name: build react app
       run: npm run build:dev
     - name: copy file via ssh password
