@@ -21,6 +21,7 @@ jobs:
     - name: NPM isntall
       run: |
         npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+        npm config set "//npm.fontawesome.com/:_authToken" AD88D815-9F31-45AA-AC3E-185B3B872007
         npm install
     - name: build react app
       run: npm run build:dev
