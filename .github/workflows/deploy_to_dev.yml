@@ -38,3 +38,15 @@ jobs:
         target: "/var/www/html/nextsale"
         overwrite : true
         rm: true
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.NEXTSALE_DEV_HOST }}
+        username: ${{ secrets.NEXTSALE_DEV_SSH_USER }}
+        password: ${{ secrets.NEXTSALE_DEV_SSH_PASS }}
+        port: 22
+        timeout: 30s
+        script: |
+          cp -r /var/www/html/nextsale/build/* /var/www/html/nextsale/
+          sudo systemctl stop nginx
+          sudo systemctl start nginx
