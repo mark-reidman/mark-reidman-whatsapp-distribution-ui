@@ -36,6 +36,33 @@ export class OrderService {
         }
     }
 
+    async getOrderCost(order_id) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/' + order_id + "/cost", {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async getOrderDistributionLists(order_id) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/' + order_id + "/distributionlist", {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async getAllDistributionLists() {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/alldistributionlist', {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     async getAllOrders() {
         try {
             const res = await axios.get(SERVER_URL + '/order/all', {withCredentials: !IS_DEV_MODE})

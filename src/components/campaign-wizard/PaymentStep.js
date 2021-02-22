@@ -9,17 +9,19 @@ import {
 } from "reactstrap";
 import { PayPalButton } from "react-paypal-button-v2";
 import SignatureOnAgrementModal from './SignatureOnAgrementModal.js'
+import {OrderService} from '../../services/OrderService.js'
 
 
 const PaymentStep = () => {
     const [state, dispatch] = useContext(WizardContext);
-    const [amount, setAmount] = React.useState(2);
-    const [orderID, setOrderID] = React.useState(false);
+    const [amount, setAmount] = React.useState(null);
+    const [payPalOrderID, setPayPalOrderID] = React.useState(false);
     const [signatureOpen, setSignatureOpen] = React.useState(false);
     const [signatureCheckbox, setSignatureCheckbox] = React.useState(false);
     const [signatureImage, setSignatureImage] = React.useState(null);
     const [totalRecipients, setTotalRecipients] = React.useState(null);
     
+    const orderService = new OrderService()
 
     const selectSignatureCheckbox = (e) => {
         setSignatureImage(null)
@@ -120,13 +122,20 @@ const PaymentStep = () => {
 
             Object.keys(state.distributionList).map((key) => {  
                 state.distributionList[key].map((item, ind) => {
-                    counter += item.data.length
-                })
-            })
-        }
+                    counter += item.data.length;
+                });
+            });
+        };
         setTotalRecipients(counter);
-        
+
       })
+
+      useEffect(() => {
+        
+        orderService.getOrderCost(state.campaignId).then((res) => { 
+            setAmount(res.data);
+        });
+      }, [])
 
     return (
     <>

@@ -13,11 +13,13 @@ import {
 
 import StartCampaignModal from './FileUploadModal.js'
 import CopyPasteModal from './CopyPasteModal.js'
+import PriviousListModal from './PriviousListModal.js'
 
 const LoadingMethodStep = () => {
   const [distributionList, setDistributionList] = React.useState({});
   const [fileUplaodOpen, setFileUplaodOpen] = React.useState(false);
   const [copyPasteOpen, setCopyPasteOpen] = React.useState(false);
+  const [savedListOpen, setSavedListOpen] = React.useState(false);
   const [state, dispatch] = useContext(WizardContext);
 
   const deleteLoadingMethod = (key, id) => {
@@ -61,15 +63,15 @@ const LoadingMethodStep = () => {
           </Button>
           <CopyPasteModal modalOpen={copyPasteOpen} setModalOpen={setCopyPasteOpen} distributionList={distributionList} setDistributionList={updateDistributionList}  />
           <Button
-            disabled
             className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
-            onClick={(e) => console.log("")}
+            onClick={(e) => setSavedListOpen(!savedListOpen)}
           >
             <i className="fal fa-cloud-download wizard-big-icon green-color"></i>
             <p className="title">רשימות שמורות</p>
           </Button>
+          <PriviousListModal modalOpen={savedListOpen} setModalOpen={setSavedListOpen} distributionList={distributionList} setDistributionList={updateDistributionList} />
         </Col>
      </Row>
      <Row>

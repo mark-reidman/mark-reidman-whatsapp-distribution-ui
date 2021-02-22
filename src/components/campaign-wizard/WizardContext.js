@@ -55,8 +55,11 @@ export const actionTypes = {
 const orderService = new OrderService()
 
 const reducer = (state, action) => {
-    console.log(action)
-    console.log(state)
+    let triggerUpdate = true
+    console.log(action["triggerUpdate"])
+    if (action["triggerUpdate"] !== undefined)
+        triggerUpdate = action["triggerUpdate"]
+
     let new_state = {}
     switch (action.type) {
         case actionTypes.setCampaignId:
@@ -154,7 +157,7 @@ const reducer = (state, action) => {
         console.log("Unrecognized reduce operation: " + action.type)
     }
 
-    if (new_state.campaignId !== null && new_state.campaignId !== undefined) {
+    if (triggerUpdate && new_state.campaignId !== null && new_state.campaignId !== undefined) {
         orderService.updateOrder(new_state);
     }
     return new_state;
