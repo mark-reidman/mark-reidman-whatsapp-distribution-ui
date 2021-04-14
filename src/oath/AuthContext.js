@@ -3,10 +3,13 @@ import axios from 'axios';
 
 export const AuthContext = React.createContext()
 
+const SERVER_URL = process.env.REACT_APP_API_URL;
+
 export const AuthContextProvider = (props) => {
     const [user, setUser] = useState(null);
     const [isLogined, setIsLogined] = useState(false);
     const [token, setToken] = useState(null);
+    
 
     const setAuthUser = (data, rememberme) => {
         setUser(data);
@@ -24,6 +27,12 @@ export const AuthContextProvider = (props) => {
     const setAuthToken = (token) => {
         setToken(token);
         sessionStorage.setItem("token", JSON.stringify(token));
+    };
+
+    const logout = () => {
+        axios.get(SERVER_URL + '/auth/logout')
+        setAuthUser(null)
+        setAuthIsLogined(false)
     };
 
     async function isAuth() {
@@ -49,7 +58,7 @@ export const AuthContextProvider = (props) => {
     }, []);
 
     return (
-      <AuthContext.Provider value={[user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken]}>
+      <AuthContext.Provider value={[user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken, logout]}>
         {props.children}
       </AuthContext.Provider>
     );

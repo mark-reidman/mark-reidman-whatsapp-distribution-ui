@@ -19,9 +19,14 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import {AuthContext} from '../../oath/AuthContext.js'
 
 function DemoNavbar(props) {
   const [collapseOpen, toggleCollapse] = React.useState(false);
+  const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken, logout] = React.useContext(AuthContext);
+
+  console.log(user);
+
   React.useEffect(() => {
     let headroom = new Headroom(document.getElementById("dark-navbar-main"));
     // initialise
@@ -311,6 +316,42 @@ function DemoNavbar(props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              {user != null ? 
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  className="nav-link-icon"
+                  color="default"
+                  data-toggle="dropdown"
+                  href="#pablo"
+                  onClick={(e) => e.preventDefault()}
+                  id="navbar-default_dropdown_1"
+                  nav
+                  role="button"
+                >
+                  <img
+                    alt="..."
+                    className="img-fluid rounded-circle shadow"
+                    src={user.profile_pic}
+                    style={{ width: "30px" }}
+                  ></img>
+                </DropdownToggle>
+                <DropdownMenu aria-labelledby="navbar-default_dropdown_1" right>
+                  <DropdownItem
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    Your profile
+                  </DropdownItem>
+                  <DropdownItem divider></DropdownItem>
+                  <DropdownItem
+                    href="#pablo"
+                    onClick={(e) => logout()}
+                  >
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              : <></>}
             </Nav>
           </Collapse>
         </Container>

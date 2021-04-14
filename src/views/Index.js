@@ -5,6 +5,13 @@ import { Container, Row, Button } from "reactstrap";
 
 // Core Components
 import DemoNavbar from "components/navbars/DemoNavbar.js";
+import NavbarDanger from "components/navbars/NavbarDanger.js";
+import NavbarDefault from "components/navbars/NavbarDefault.js";
+import NavbarInfo from "components/navbars/NavbarInfo.js";
+import NavbarPrimary from "components/navbars/NavbarPrimary.js";
+import NavbarSuccess from "components/navbars/NavbarSuccess.js";
+
+
 import DemoFooter from "components/footers/DemoFooter.js";
 import HeaderIndex from "components/headers/HeaderIndex.js";
 // Demo Sections for this page
@@ -59,7 +66,15 @@ function Index() {
   });
   return (
     <>
+    
       <DemoNavbar type="transparent" />
+      <NavbarDanger type="transparent" />
+      <NavbarDefault type="transparent" />
+      <NavbarInfo type="transparent" />
+      <NavbarPrimary type="transparent" />
+      <NavbarSuccess type="transparent" />
+
+      
       <div className="wrapper ml-auto">
         <Button
           className="btn-icon-only back-to-top show"

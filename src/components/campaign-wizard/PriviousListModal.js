@@ -18,8 +18,30 @@ const PriviousListModal = ({ modalOpen, setModalOpen, distributionList, setDistr
         setModalOpen(!modalOpen)
     }
 
-    const deleteLoadingMethod = (key, id) => {
-
+    const selectList = (item) => {
+        console.log(item);
+        
+        let tmp = distributionList;
+        if (item["fileType"] != undefined) {
+            if( tmp["files"] != undefined){
+                tmp["files"] = tmp["files"].concat(item)
+            }
+            else {
+                tmp["files"] = [item]
+            }
+        }
+        else{
+            if( tmp["copyPaste"] != undefined) {
+                tmp["copyPaste"] = tmp["copyPaste"].concat({"data": item["data"], id: uniqueID()})
+            }
+            else {
+                tmp["copyPaste"] = [{"data": item["data"], id: Date.now()}]
+            }
+        }
+        setDistributionList({
+            ...tmp
+          });
+        setModalOpen(!modalOpen)
     }
 
     useEffect(() => {
@@ -72,58 +94,56 @@ const PriviousListModal = ({ modalOpen, setModalOpen, distributionList, setDistr
                     <Table className="align-items-center table-flush" responsive>
                         <thead className="thead-light">
                         <tr>
-                        <th className="sort" data-sort="type" scope="col">
-                            סוג
-                            </th>
-                            <th className="sort" data-sort="type" scope="col">
-                            שם
+                            <th scope="col"></th>
+                            <th className="sort" data-sort="status" scope="col">
+                            סטאטוס
                             </th>
                             <th className="sort" data-sort="amount" scope="col">
                             כמות
                             </th>
-                            <th className="sort" data-sort="status" scope="col">
-                            סטאטוס
+                            <th className="sort" data-sort="type" scope="col">
+                            שם
                             </th>
-                            <th scope="col"></th>
+                            <th className="sort" data-sort="type" scope="col">
+                            סוג
+                            </th>
                         </tr>
                         </thead>
                         <tbody className="list">
                             {Object.keys(priviousDistributionList).length === 0 && <tr key="1"><td colSpan="4">לא נבחרו רשימות</td></tr>}
-                            {
-                            Object.keys(priviousDistributionList).map((key) => {
+                            {Object.keys(priviousDistributionList).map((key) => {
                                 return(
                                     priviousDistributionList[key].map((item, ind) => {
                                     return(<tr>
                                         <td scope="row">
-                                        <Media className="align-items-center" style={{display: "block"}}>
-                                            <i className={clsx("fal", "wizard-big-icon", 
-                                            (key == "files" && item.fileType === "excel") ? "fa-file-excel" : "",
-                                            (key == "copyPaste") ? "fa-stream" : "", 
-                                            (key == "savedList" === "fa-cloud-download") ? "fa-stream" : "")}></i>
-                                        </Media>
+                                            <Button
+                                            color="success"
+                                            onClick={(e) => selectList(item)}
+                                            size="sm"
+                                            >
+                                                המשך                                            
+                                            </Button>
+                                        </td>
+                                        <td>
+                                            <Badge className="badge-dot mr-4">
+                                                <i className="bg-warning"></i>
+                                                <span className="status">pending</span>
+                                            </Badge>
                                         </td>
                                         <td className="name mb-0 text-sm">
-                                        {key == "files" ? item.fileName + " - " + item.column : ""}
-                                        {key == "copyPaste" ? "רשימה ידנית" : ""}
+                                            {item.data.length}
                                         </td>
-                                        <td className="name mb-0 text-sm">{item.data.length}</td>
-                                        <td>
-                                        <Badge className="badge-dot mr-4">
-                                            <i className="bg-warning"></i>
-                                            <span className="status">pending</span>
-                                        </Badge>
+                                        <td className="name mb-0 text-sm">
+                                            {key == "files" ? item.fileName + " - " + item.column : ""}
+                                            {key == "copyPaste" ? "רשימה ידנית" : ""}
                                         </td>
                                         <td className="text-right">
-                                        <Button
-                                                className="btn-icon-only rounded-circle"
-                                                color="danger"
-                                                type="button"
-                                                onClick={() => deleteLoadingMethod(key, item.id)}
-                                            >
-                                                <span className="btn-inner--icon">
-                                                <i className="fal fa-trash-alt"></i>
-                                                </span>
-                                        </Button>
+                                            <Media className="align-items-center" style={{display: "block"}}>
+                                                <i className={clsx("fal", "wizard-big-icon", 
+                                                (key == "files" && item.fileType === "excel") ? "fa-file-excel" : "",
+                                                (key == "copyPaste") ? "fa-stream" : "", 
+                                                (key == "savedList" === "fa-cloud-download") ? "fa-stream" : "")}></i>
+                                            </Media>
                                         </td>
                                     </tr>)
                                     })
