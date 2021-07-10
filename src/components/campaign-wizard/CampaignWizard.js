@@ -14,6 +14,7 @@ import TestBeforeApproveStep from './TestBeforeApproveStep.js';
 // import PaymentStep from './PaymentStep.js';
 import NewPaymentStep from './NewPaymentStep.js';
 import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -152,6 +153,17 @@ export default function CampaignWizard({}) {
     const location = useLocation();
     const [state, dispatch] = useContext(WizardContext);
 
+    const [modalOpen, setModalOpen] = React.useState(false);
+
+    const history = useHistory();
+
+    const clsoeModal = () => {
+        setModalOpen(!modalOpen)
+        setTimeout(()=>{
+            history.push({pathname: "/sections", state: {redirected: false}});
+          }, 1000)
+    }
+
 
     useEffect(() => {
         if(location.state != undefined){
@@ -170,8 +182,8 @@ export default function CampaignWizard({}) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
+    const handleSave = () => {
+        setModalOpen(!modalOpen)
     };
 
     return (
@@ -200,7 +212,7 @@ export default function CampaignWizard({}) {
                                     variant="contained"
                                     color="primary"
 
-                                    onClick={(activeStep === (steps.length - 1)) ? handleReset : handleNext}
+                                    onClick={(activeStep === (steps.length - 1)) ? handleSave : handleNext}
                                     className={clsx(classes.button, "pull-right")}
                                 >
                                     <span className="btn-inner--text">&nbsp;&nbsp;&nbsp;&nbsp; {(activeStep === steps.length - 1) ? 'שמור' : 'הבא'}&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -220,6 +232,30 @@ export default function CampaignWizard({}) {
                         </div>
                     </Col>
                 </Row>
+                <Modal
+                    isOpen={modalOpen}
+                    toggle={clsoeModal}
+                    className="modal-lg"
+                    modalClassName=" bd-example-modal-lg"
+                >
+                    <div className="modal-header">
+                        <h5 className="modal-title float-right" id="exampleModalLabel">
+                            סיום הזמנה
+                        </h5>
+                        <button
+                            aria-label="Close"
+                            className="close"
+                            onClick={clsoeModal}
+                            type="button"
+                        >
+                            <span aria-hidden={true}>×</span>
+                        </button>
+                    </div>
+                    <div className="modal-body bg-secondary">
+                        <span>ההזמנה נשמרה, כרגע המערכת נמצאת בשלב הניסוי, נא פנה למפעילים על מנת טיפול בהזמנה.</span>
+                        <span>תודה מצוות נקסט סייל</span>
+                    </div>
+                </Modal>
             </Container>
         </>
     );
