@@ -25,7 +25,8 @@ const initialState = {
     campaignPaymentId: null,
     campaignTestNumberOne: null,
     campaignTestNumberTwo: null,
-    campaignTestNumberThree: null
+    campaignTestNumberThree: null,
+    campaignPromocode: null,
 };
 
 export const actionTypes = {
@@ -49,7 +50,8 @@ export const actionTypes = {
     setCampaignTestNumberOne: "setCampaignTestNumberOne",
     setCampaignTestNumberTwo: "setCampaignTestNumberTwo",
     setCampaignTestNumberThree: "setCampaignTestNumberThree",
-    setCampaignDistributionSpeed: "setCampaignDistributionSpeed"
+    setCampaignDistributionSpeed: "setCampaignDistributionSpeed",
+    setCampaignPromocode: "setCampaignPromocode"
   }
 
 // return {
@@ -61,8 +63,7 @@ export const actionTypes = {
 const orderService = new OrderService()
 
 const reducer = (state, action) => {
-    let triggerUpdate = true
-    console.log(action["triggerUpdate"])
+    let triggerUpdate = true;
     if (action["triggerUpdate"] !== undefined)
         triggerUpdate = action["triggerUpdate"]
 
@@ -167,11 +168,16 @@ const reducer = (state, action) => {
             new_state =  {...state, 
                 campaignTestNumberThree: action.payload
             };
+            break;
         case actionTypes.setCampaignDistributionSpeed:
             new_state =  {...state, 
                 campaignDistributionSpeed: action.payload
             };
-            
+            break;
+        case actionTypes.setCampaignPromocode:
+            new_state =  {...state, 
+                campaignPromocode: action.payload
+            };
             break;                                                                    
       default:
         new_state = state;

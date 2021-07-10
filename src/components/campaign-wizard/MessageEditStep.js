@@ -36,7 +36,9 @@ const MessageEditStep = () => {
   
 
   useEffect(() => {
-    // setMessage(message);
+    setFirstMessage(state.campaignFirstMessage);
+    setSecondMessage(state.campaignSecondMessage);
+    setThirdMessage(state.campaignThirdMessage);
   })
 
   return (

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import {WizardContext, actionTypes} from './WizardContext.js'
 import {OrderService} from '../../services/OrderService.js'
+import { phoneNumberCorrection } from './utils.js'
 
 // reactstrap components
 import {
@@ -23,14 +24,24 @@ const TestBeforeApproveStep = () => {
     const [isSendInProgress, setIsSendInProgress] = React.useState(false);
     const [didSendTestMessage, setDidSendTestMessage] = React.useState(false);
     const [numOne, setNumOne] = React.useState("");
+    const [isNumOneValid, setIsNumOneValid] = React.useState(false);
     // const [numTwo, setNumTwo] = React.useState("");
     // const [numThree, setNumThree] = React.useState("");
 
     const orderService = new OrderService()
     
     const updateNumOne = (e) => {
-        setNumOne(e.target.value);
-        dispatch({type: actionTypes.setCampaignTestNumberOne, payload: e.target.value });
+        let phoneNumber = phoneNumberCorrection(e.target.value);
+        if (phoneNumber !== "") {
+            setNumOne(phoneNumber);
+            setIsNumOneValid(true);
+        }
+        else {
+            phoneNumber = e.target.value
+            setNumOne(e.target.value);
+            setIsNumOneValid(false);
+        }
+        dispatch({type: actionTypes.setCampaignTestNumberOne, payload: phoneNumber });
     }
 
     // const updateNumTwo = (e) => {
@@ -44,7 +55,15 @@ const TestBeforeApproveStep = () => {
     // }
 
     useEffect(() => {
-        setNumOne(state.campaignTestNumberOne);
+        let phoneNumber = phoneNumberCorrection(state.campaignTestNumberOne);
+        if (phoneNumber !== "") {
+            setNumOne(phoneNumber);
+            setIsNumOneValid(true);
+        }
+        else {
+            setNumOne(state.campaignTestNumberOne);
+            setIsNumOneValid(false);
+        }
         // setNumTwo(state.campaignTestNumberTwo);
         // setNumThree(state.campaignTestNumberThree);
         
@@ -56,15 +75,19 @@ const TestBeforeApproveStep = () => {
 
     const sendTestMessage = () => {
         setIsSendInProgress(true);
-        orderService.sendTestMessage(state).then(() => {
+        orderService.sendTestMessage(state).then((res) => {
             setIsSendInProgress(false);
-            setDidSendTestMessage(true);
-        })
-
-        // sleep(5000).then(() => {
-        //     setIsSendInProgress(false);
-        //     setDidSendTestMessage(true);
-        // })
+            if(res.data == true){
+                setDidSendTestMessage(true);
+                sleep(30000).then(() => {
+                    setDidSendTestMessage(false);
+                });
+            }
+            else {
+                setDidSendTestMessage(false);
+            }
+        });
+        
     }
 
     return (
@@ -148,18 +171,19 @@ const TestBeforeApproveStep = () => {
                             className="btn-icon"
                             color="success"
                             type="button"
+                            disabled={!isNumOneValid || isSendInProgress|| didSendTestMessage }
                             onClick={sendTestMessage}
                         >
-                            {!isSendInProgress ?
+                            {isSendInProgress ? <Spinner color="" type="grow" size="sm"></Spinner> : <></>}
+                            {!isSendInProgress && didSendTestMessage ? "הודעה נשלחה, יש להמתין 30 שניות" : ""}
+                            {!isSendInProgress && !didSendTestMessage ?
                                 <>
                                     <span className="btn-inner--icon">
                                         <i className="fab fa-whatsapp"></i>
                                     </span>
                                     <span className="btn-inner--text">שלח הודעות בדיקה</span>
                                 </>
-                                : <></>}
-                            {isSendInProgress && !didSendTestMessage ? <Spinner color="" type="grow" size="sm"></Spinner> : <></>}
-                            {isSendInProgress && !didSendTestMessage ? "...שולח" : ""}
+                                : <></>}                            
                         </Button>
                     </Col>
                 </Row>

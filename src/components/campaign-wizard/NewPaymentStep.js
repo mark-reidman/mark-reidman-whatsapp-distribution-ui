@@ -51,24 +51,28 @@ const NewPaymentStep = () => {
     }
     
     const checkPromocode = (e) => {
-        payService.checkPromotioncode(state.campaignId, e.target.value).then((res) => {
+        setPromocode(e.target.value);
+        dispatch({type: actionTypes.setCampaignPromocode, payload: e.target.value });
+        payService.checkPromotioncode(e.target.value).then((res) => {
             if(res.data != undefined ) {
                 if(res.data.available_amount > totalRecipients){
                     setPaymentReason("קוד תקין")
+                    setIsPromoValid(true)
                 }
                 else {
                     setPaymentReason("אין מספיק קרדיט בקוד " + res.data.available_amount)
+                    setIsPromoValid(false)
                 }
             }
         }).catch(err => {
             setPaymentReason("קוד לא תקין")
-        });
-    //   setPromocode(e.target.value);
-    //   dispatch({type: actionTypes.setPromocode, payload: e.target.value });
-    //   setIsPromoValid(false)
+            setIsPromoValid(false)
+        });    
     }
 
     useEffect(() => {
+        setPromocode(state.campaignPromocode);
+
         if(state.campaignSignature !== null) {
             setSignatureImage(state.campaignSignature);
             setSignatureCheckbox(true);
@@ -93,7 +97,6 @@ const NewPaymentStep = () => {
                 if(res != undefined ) {
                     setAmount(res.data);
                 }
-            
             });
         }
     }, [])

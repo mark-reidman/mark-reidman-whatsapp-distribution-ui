@@ -81,6 +81,7 @@ const NewDistributionPropertiesStep = ({}) => {
     useEffect(() => {
       setEmail(state.campaignOwnerEmail);
       setTimeOfDistribution(state.campaignStartDate);
+      setCampaignDistSpeed(state.campaignDistributionSpeed);
       if(state.setCampaignPhoneType === "")
       {
         updatePhoneNumberMethod("client");
