@@ -9,9 +9,9 @@ export class PaymentService {
       this.getPromotionStatus = this.getPromotionStatus.bind(this);
     }
   
-    async checkPromotioncode(code) {
+    async checkPromotioncode(orderid, code) {
         try {
-            const res = await axios.get(SERVER_URL + '/payment/promo/check/' + code, {withCredentials: !IS_DEV_MODE})
+            const res = await axios.get(SERVER_URL + '/payment/promo/' + orderid + '/check/' + code, {withCredentials: !IS_DEV_MODE})
             return res;
         } catch(e) {
             console.log(e)

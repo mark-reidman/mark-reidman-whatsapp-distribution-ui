@@ -252,8 +252,8 @@ export default function CampaignWizard({}) {
                         </button>
                     </div>
                     <div className="modal-body bg-secondary">
-                        <span>ההזמנה נשמרה, כרגע המערכת נמצאת בשלב הניסוי, נא פנה למפעילים על מנת טיפול בהזמנה.</span>
-                        <span>תודה מצוות נקסט סייל</span>
+                        <div>ההזמנה נשמרה, כרגע המערכת נמצאת בשלב הניסוי, נא פנה למפעילים על מנת שנמשיך טיפול בהזמנה.</div>
+                        <div>תודה מצוות נקסט סייל</div>
                     </div>
                 </Modal>
             </Container>

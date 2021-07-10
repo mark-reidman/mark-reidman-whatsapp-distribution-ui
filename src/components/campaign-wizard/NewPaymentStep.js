@@ -51,7 +51,7 @@ const NewPaymentStep = () => {
     }
     
     const checkPromocode = (e) => {
-        payService.checkPromotioncode(e.target.value).then((res) => {
+        payService.checkPromotioncode(state.campaignId, e.target.value).then((res) => {
             if(res.data != undefined ) {
                 if(res.data.available_amount > totalRecipients){
                     setPaymentReason("קוד תקין")
