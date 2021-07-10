@@ -10,9 +10,12 @@ const initialState = {
     campaignStatus: "NEW",
     campaignName: "",
     distributionList: {},
-    campaignMessage: "",
+    campaignFirstMessage: "",
+    campaignSecondMessage: "",
+    campaignThirdMessage: "",
     campaignStartDate: null,
     campaignOwnerEmail: null,
+    campaignDistributionSpeed: null,
     campaignPhoneType: null,
     campaignPhoneNumber: null,
     campaignPhoneKey: null,
@@ -31,7 +34,9 @@ export const actionTypes = {
     setCampaignStatus: 'setCampaignStatus',
     setCampaignName: 'setCampaignName',
     setDistributionList: 'setDistributionList',
-    setCampaignMessage: 'setCampaignMessage',
+    setCampaignFirstMessage: 'setCampaignFirstMessage',
+    setCampaignSecondMessage: 'setCampaignSecondMessage',
+    setCampaignThirdMessage: 'setCampaignThirdMessage',
     setCampaignStartDate: 'setCampaignStartDate',
     setCampaignOwnerEmail: 'setCampaignOwnerEmail',
     setCampaignPhoneType: 'setCampaignPhoneType',
@@ -44,6 +49,7 @@ export const actionTypes = {
     setCampaignTestNumberOne: "setCampaignTestNumberOne",
     setCampaignTestNumberTwo: "setCampaignTestNumberTwo",
     setCampaignTestNumberThree: "setCampaignTestNumberThree",
+    setCampaignDistributionSpeed: "setCampaignDistributionSpeed"
   }
 
 // return {
@@ -87,9 +93,19 @@ const reducer = (state, action) => {
                 distributionList: action.payload
             };
             break;
-        case actionTypes.setCampaignMessage:
+        case actionTypes.setCampaignFirstMessage:
             new_state =  {...state, 
-                campaignMessage: action.payload
+                campaignFirstMessage: action.payload
+            };
+            break;
+        case actionTypes.setCampaignSecondMessage:
+            new_state =  {...state, 
+                campaignSecondMessage: action.payload
+            };
+            break;
+        case actionTypes.setCampaignThirdMessage:
+            new_state =  {...state, 
+                campaignThirdMessage: action.payload
             };
             break;
         case actionTypes.setCampaignStartDate:
@@ -151,6 +167,11 @@ const reducer = (state, action) => {
             new_state =  {...state, 
                 campaignTestNumberThree: action.payload
             };
+        case actionTypes.setCampaignDistributionSpeed:
+            new_state =  {...state, 
+                campaignDistributionSpeed: action.payload
+            };
+            
             break;                                                                    
       default:
         new_state = state;

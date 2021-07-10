@@ -52,15 +52,17 @@ const PriviousListModal = ({ modalOpen, setModalOpen, distributionList, setDistr
             let filePhoneLists = [];
             let copyPasteLists = [];
             
-            res.data.map((lst) => {
-                if (lst["list_type"] == "files"){
-                    filePhoneLists.push({"fileType": lst["file_type"] ,"fileName": lst["file_name"], "column": lst["file_column"], "data": lst["phones"], "id": lst["id"]})
-                }
-                else if(lst["list_type"] == "copyPaste") {
-                    copyPasteLists.push({"data": lst["phones"], id: lst["id"]})
-                }
-            });
-            setPriviousDistributionList({"copyPaste": copyPasteLists, "files": filePhoneLists});
+            if(res.data != null){
+                res.data.map((lst) => {
+                    if (lst["list_type"] == "files"){
+                        filePhoneLists.push({"fileType": lst["file_type"] ,"fileName": lst["file_name"], "column": lst["file_column"], "data": lst["phones"], "id": lst["id"]})
+                    }
+                    else if(lst["list_type"] == "copyPaste") {
+                        copyPasteLists.push({"data": lst["phones"], id: lst["id"]})
+                    }
+                });
+                setPriviousDistributionList({"copyPaste": copyPasteLists, "files": filePhoneLists});
+            }
 
             setIsLoading(false);
         });

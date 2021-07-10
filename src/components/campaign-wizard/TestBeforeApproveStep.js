@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import {WizardContext, actionTypes} from './WizardContext.js'
+import {OrderService} from '../../services/OrderService.js'
 
 // reactstrap components
 import {
@@ -22,28 +23,30 @@ const TestBeforeApproveStep = () => {
     const [isSendInProgress, setIsSendInProgress] = React.useState(false);
     const [didSendTestMessage, setDidSendTestMessage] = React.useState(false);
     const [numOne, setNumOne] = React.useState("");
-    const [numTwo, setNumTwo] = React.useState("");
-    const [numThree, setNumThree] = React.useState("");
+    // const [numTwo, setNumTwo] = React.useState("");
+    // const [numThree, setNumThree] = React.useState("");
 
+    const orderService = new OrderService()
+    
     const updateNumOne = (e) => {
         setNumOne(e.target.value);
         dispatch({type: actionTypes.setCampaignTestNumberOne, payload: e.target.value });
     }
 
-    const updateNumTwo = (e) => {
-        setNumTwo(e.target.value);
-        dispatch({type: actionTypes.setCampaignTestNumberTwo, payload: e.target.value });
-    }
+    // const updateNumTwo = (e) => {
+    //     setNumTwo(e.target.value);
+    //     dispatch({type: actionTypes.setCampaignTestNumberTwo, payload: e.target.value });
+    // }
 
-    const updateNumThree = (e) => {
-        setNumThree(e.target.value);
-        dispatch({type: actionTypes.setCampaignTestNumberThree, payload: e.target.value });
-    }
+    // const updateNumThree = (e) => {
+    //     setNumThree(e.target.value);
+    //     dispatch({type: actionTypes.setCampaignTestNumberThree, payload: e.target.value });
+    // }
 
     useEffect(() => {
         setNumOne(state.campaignTestNumberOne);
-        setNumTwo(state.campaignTestNumberTwo);
-        setNumThree(state.campaignTestNumberThree);
+        // setNumTwo(state.campaignTestNumberTwo);
+        // setNumThree(state.campaignTestNumberThree);
         
       })
 
@@ -53,10 +56,15 @@ const TestBeforeApproveStep = () => {
 
     const sendTestMessage = () => {
         setIsSendInProgress(true);
-        sleep(5000).then(() => {
+        orderService.sendTestMessage(state).then(() => {
             setIsSendInProgress(false);
             setDidSendTestMessage(true);
         })
+
+        // sleep(5000).then(() => {
+        //     setIsSendInProgress(false);
+        //     setDidSendTestMessage(true);
+        // })
     }
 
     return (
@@ -70,7 +78,7 @@ const TestBeforeApproveStep = () => {
                 <h3 className="align-center">נא בחר מספר לשליחת הודעת בדיקה</h3>
                 <Row>
                     <Col md="4">
-                        <FormGroup >
+                        {/* <FormGroup >
                             <label>מספר שלישי</label>
                             <FormGroup>
                                 <InputGroup className="mb-4">
@@ -87,11 +95,11 @@ const TestBeforeApproveStep = () => {
                                     ></Input>
                                 </InputGroup>
                             </FormGroup>
-                        </FormGroup>
+                        </FormGroup> */}
                     </Col>
                     <Col md="4">
                         <FormGroup >
-                            <label>מספר שני</label>
+                            {/* <label>מספר שני</label>
                             <FormGroup>
                                 <InputGroup className="mb-4">
                                     <InputGroupAddon addonType="prepend">
@@ -106,7 +114,7 @@ const TestBeforeApproveStep = () => {
                                         type="number"
                                     ></Input>
                                 </InputGroup>
-                            </FormGroup>
+                            </FormGroup> */}
                         </FormGroup>
                     </Col>
                     <Col md="4">
@@ -131,8 +139,11 @@ const TestBeforeApproveStep = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="3"></Col>
-                    <Col md="6" className="align-center">
+                    <Col md="4"></Col>
+                    <Col md="4">
+                        
+                    </Col>
+                    <Col md="4" className="align-center">
                         <Button
                             className="btn-icon"
                             color="success"
@@ -151,7 +162,6 @@ const TestBeforeApproveStep = () => {
                             {isSendInProgress && !didSendTestMessage ? "...שולח" : ""}
                         </Button>
                     </Col>
-                    <Col md="3"></Col>
                 </Row>
 
             </Form>

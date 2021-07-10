@@ -21,7 +21,7 @@ import TestimonialsSection from "components/sections-page/TestimonialsSection.js
 import ContactUsSection from "components/sections-page/ContactUsSection.js";
 import TablesSection from "components/sections-page/TablesSection.js";
 import AccordionsSection from "components/sections-page/AccordionsSection.js";
-import MyCampaignsSection from "components/sections-page/MyCampaignsSection.js"
+// import MyCampaignsSection from "components/sections-page/MyCampaignsSection.js"
 
 function Sections() {
     const [shouldShowMyCampaignsSection, setShouldShowMyCampaignsSection] = useState(false);
@@ -45,12 +45,12 @@ function Sections() {
     });
 
     useEffect(() => {
-        let service = new OrderService();
+        // let service = new OrderService();
 
-        service.getOrdersCount().then((res) => {
-            if (res.data.total > 0) 
-                setShouldShowMyCampaignsSection(true);
-        });
+        // service.getOrdersCount().then((res) => {
+        //     if (res.data.total > 0) 
+        //         setShouldShowMyCampaignsSection(true);
+        // });
 
      },[]);
 
@@ -59,7 +59,7 @@ function Sections() {
             <DemoNavbar type="dark"/>
             <div className="wrapper">
                 <HeadersSection/>
-                {shouldShowMyCampaignsSection ? <MyCampaignsSection/> : <></>}
+                {/* {shouldShowMyCampaignsSection ? <MyCampaignsSection/> : <></>} */}
                 {/* <FeaturesSection/> */}
                 {/*<BlogsSection/>*/}
                 {/*<TeamsSection/>*/}

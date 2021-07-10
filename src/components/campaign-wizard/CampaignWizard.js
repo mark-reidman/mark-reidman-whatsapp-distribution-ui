@@ -8,9 +8,11 @@ import StepConnector from '@material-ui/core/StepConnector';
 import {WizardContext, actionTypes} from './WizardContext.js'
 import LoadingMethodStep from './LoadingMethodStep.js'
 import MessageEditStep from './MessageEditStep.js'
-import DistributionPropertiesStep from './DistributionPropertiesStep.js'
+// import DistributionPropertiesStep from './DistributionPropertiesStep.js'
+import NewDistributionPropertiesStep from './NewDistributionPropertiesStep.js'
 import TestBeforeApproveStep from './TestBeforeApproveStep.js';
-import PaymentStep from './PaymentStep.js';
+// import PaymentStep from './PaymentStep.js';
+import NewPaymentStep from './NewPaymentStep.js';
 import { useLocation } from "react-router-dom";
 
 // reactstrap components
@@ -132,11 +134,14 @@ const getStepComponent = (step) => {
         case 1:
             return <MessageEditStep/>;
         case 2:
-            return <DistributionPropertiesStep/>;
+            // return <DistributionPropertiesStep/>;
+            return <NewDistributionPropertiesStep/>;
+            
         case 3:
             return <TestBeforeApproveStep/>;
         default:
-            return <PaymentStep/>;
+            // return <PaymentStep/>;
+            return <NewPaymentStep/>;
     }
 }
 

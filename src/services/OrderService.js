@@ -81,5 +81,12 @@ export class OrderService {
         }
     }
 
-
+    async sendTestMessage(order) {
+        try {
+            const res = await axios.post(SERVER_URL + '/order/test', order, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
   }
