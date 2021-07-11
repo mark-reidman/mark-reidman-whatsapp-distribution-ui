@@ -15,6 +15,7 @@ import TestBeforeApproveStep from './TestBeforeApproveStep.js';
 import NewPaymentStep from './NewPaymentStep.js';
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import {OrderService} from '../../services/OrderService.js'
 
 // reactstrap components
 import {
@@ -156,6 +157,7 @@ export default function CampaignWizard({}) {
     const [modalOpen, setModalOpen] = React.useState(false);
 
     const history = useHistory();
+    const orderService = new OrderService()
 
     const clsoeModal = () => {
         setModalOpen(!modalOpen)
@@ -184,6 +186,7 @@ export default function CampaignWizard({}) {
 
     const handleSave = () => {
         setModalOpen(!modalOpen)
+        orderService.notify(state)
     };
 
     return (
@@ -211,7 +214,7 @@ export default function CampaignWizard({}) {
                                 <Button
                                     variant="contained"
                                     color="primary"
-
+                                    disabled={((activeStep === (steps.length - 1)) && state.campaignTotalContacts > state.userTotalCredit)}
                                     onClick={(activeStep === (steps.length - 1)) ? handleSave : handleNext}
                                     className={clsx(classes.button, "pull-right")}
                                 >
@@ -252,7 +255,7 @@ export default function CampaignWizard({}) {
                         </button>
                     </div>
                     <div className="modal-body bg-secondary">
-                        <div>ההזמנה נשמרה, כרגע המערכת נמצאת בשלב הניסוי, נא פנה למפעילים על מנת שנמשיך טיפול בהזמנה.</div>
+                        <div>ההזמנה התקבלה ותועבר לעבודה מיד לאחר אישור ממנהל במערכת.</div>
                         <div>תודה מצוות נקסט סייל</div>
                     </div>
                 </Modal>

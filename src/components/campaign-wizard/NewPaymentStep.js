@@ -8,6 +8,7 @@ import {
   FormGroup,
   Form,
   Input,
+  Button,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
@@ -29,6 +30,9 @@ const NewPaymentStep = () => {
     const [signatureImage, setSignatureImage] = React.useState(null);
     const [totalRecipients, setTotalRecipients] = React.useState(null);
     const [paymentReason, setPaymentReason] = React.useState(null);
+    const [totalUserCredit, setTotalUserCredit] = React.useState(null);
+    const [isSendInProgress, setIsSendInProgress] = React.useState(false);
+    
     
     const orderService = new OrderService()
     let payService = new PaymentService();
@@ -70,6 +74,26 @@ const NewPaymentStep = () => {
         });    
     }
 
+    const assignPromocode = (e) => {
+        setIsSendInProgress(true);
+        payService.assignPromotionCode(promocode).then((res) => {
+            if(res.data != undefined ) {
+                getUserCredit();
+                setIsSendInProgress(false);
+                setPromocode("")
+            }
+        })   
+    }
+
+    const getUserCredit = () => {
+        payService.getUserCredit().then((res) => { 
+            if(res.data != undefined ) {
+                setTotalUserCredit(res.data.credit)
+                dispatch({type: actionTypes.setUserTotalCredit, payload: res.data.credit, triggerUpdate: false });
+            }
+        });
+    }
+
     useEffect(() => {
         setPromocode(state.campaignPromocode);
 
@@ -89,17 +113,20 @@ const NewPaymentStep = () => {
             });
         };
         setTotalRecipients(counter);
-    })
+        dispatch({type: actionTypes.setCampaignTotalContacts, payload: counter, triggerUpdate: false });
+    }, []);
 
     useEffect(() => {
         if (state.campaignId != undefined){
-            orderService.getOrderCost(state.campaignId).then((res) => { 
-                if(res != undefined ) {
-                    setAmount(res.data);
-                }
-            });
+            getUserCredit()
+
+            // orderService.getOrderCost(state.campaignId).then((res) => { 
+            //     if(res != undefined ) {
+            //         setAmount(res.data);
+            //     }
+            // });
         }
-    }, [])
+    }, []);
 
     return (
     <>
@@ -108,14 +135,14 @@ const NewPaymentStep = () => {
                 <div className="card-inner-with-border align-right" style={{padding:"10px"}}>
                     <h3 >סיכום הזמנה</h3>
                     <br/>
-                    {/* <Row>
+                    <Row>
                         <Col md="6">        
-                            <span>{amount} ILS</span>
+                            <span></span>
                         </Col>
                         <Col md="6">
-                            <h5>סה"כ לתשלום</h5>
+                            <h5>סה"כ קרדיט:  {totalUserCredit} נמענים</h5>
                         </Col>
-                    </Row> */}
+                    </Row>
                     <br/>
                     <Row>
                         <Col md="6">
@@ -134,9 +161,24 @@ const NewPaymentStep = () => {
                     </Row>
                     <br/>
                     <Row>
-                        <Col md="8" style={{marginTop: "40px"}} >
-                            
+                        <Col md="5" className="align-center">
+
+                        </Col>
+                        <Col md="3" style={{marginTop: "30px"}} >
                             <span className="chech-text">{paymentReason}</span>
+                            {isPromoValid ? 
+                                <Button
+                                    className="btn-icon"
+                                    color="info"
+                                    type="button"
+                                    disabled={isSendInProgress}
+                                    onClick={assignPromocode}
+                                >
+                                    {isSendInProgress ? <Spinner color="" type="grow" size="sm"></Spinner> : "קבל"}
+
+                                </Button>
+                                : <></>
+                            }
                         </Col>
                         <Col md="4">
                             <FormGroup>
@@ -162,7 +204,7 @@ const NewPaymentStep = () => {
                         <Col md="3">
                             {signatureImage ? <img style={{width: "50%"}} src={signatureImage} /> : null}
                         </Col>
-                        <Col md="8">
+                        <Col md="8" >
                             <span>אני מאשר את תנאי השימוש ומתחייב לא להשתמש לרעה במערכת ההפצה שלא לצורך</span>
                         </Col>
                         <Col md="1">

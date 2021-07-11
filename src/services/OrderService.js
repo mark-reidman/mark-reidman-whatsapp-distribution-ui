@@ -27,6 +27,15 @@ export class OrderService {
         }
     }
 
+    async notify(order) {
+        try {
+            const res = await axios.post(SERVER_URL + '/order/notify', order, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     async getOrder(order_id) {
         try {
             const res = await axios.get(SERVER_URL + '/order/' + order_id, {withCredentials: !IS_DEV_MODE})

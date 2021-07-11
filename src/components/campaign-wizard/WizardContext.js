@@ -27,6 +27,8 @@ const initialState = {
     campaignTestNumberTwo: null,
     campaignTestNumberThree: null,
     campaignPromocode: null,
+    campaignTotalContacts: null,
+    userTotalCredit: null,
 };
 
 export const actionTypes = {
@@ -51,7 +53,9 @@ export const actionTypes = {
     setCampaignTestNumberTwo: "setCampaignTestNumberTwo",
     setCampaignTestNumberThree: "setCampaignTestNumberThree",
     setCampaignDistributionSpeed: "setCampaignDistributionSpeed",
-    setCampaignPromocode: "setCampaignPromocode"
+    setCampaignPromocode: "setCampaignPromocode",
+    setUserTotalCredit: "setUserTotalCredit",
+    setCampaignTotalContacts: "setCampaignTotalContacts"
   }
 
 // return {
@@ -178,7 +182,18 @@ const reducer = (state, action) => {
             new_state =  {...state, 
                 campaignPromocode: action.payload
             };
-            break;                                                                    
+            break;
+        case actionTypes.setUserTotalCredit:
+            new_state =  {...state, 
+                userTotalCredit: action.payload
+            };
+            break;
+        case actionTypes.setCampaignTotalContacts:
+            new_state =  {...state, 
+                campaignTotalContacts: action.payload
+            };
+            break;
+            
       default:
         new_state = state;
         console.log("Unrecognized reduce operation: " + action.type)
