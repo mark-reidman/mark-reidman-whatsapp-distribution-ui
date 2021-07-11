@@ -10,10 +10,10 @@ import {
 } from "reactstrap";
 
 // core components
-import NavbarPrimary from "components/navbars/NavbarPrimary.js";
-import Footer1 from "components/footers/Footer1.js";
-import GoogleButton from 'oath/GoogleOath.js'
-import FacebookButton from 'oath/FacebookOath.js'
+import NavbarLogin from "components/navbars/NavbarLogin.js";
+import MainFooter from "components/footers/MainFooter.js";
+import GoogleButton from 'oath/GoogleOath.js';
+import FacebookButton from 'oath/FacebookOath.js';
 
 
 class Login extends React.Component {
@@ -51,7 +51,7 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        <NavbarPrimary />
+        <NavbarLogin />
         <main ref="main">
           <section className="section section-shaped section-lg">
             <div className="shape shape-style-1 bg-gradient-default">
@@ -112,7 +112,7 @@ class Login extends React.Component {
             </Container>
           </section>
         </main>
-        <Footer1 />
+        <MainFooter />
       </>
     );
   }

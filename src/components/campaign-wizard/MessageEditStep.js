@@ -79,7 +79,7 @@ const MessageEditStep = () => {
           </Col>
           <Col md="4">
             <FormGroup>
-              <label>'שלום, כאן 'שם נציג</label>
+              <label>הודעה ראשונה</label>
               <Input
                 id="contact-us-message-4"
                 name="message"

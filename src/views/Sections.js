@@ -8,7 +8,8 @@ import {OrderService} from '../services/OrderService.js'
 
 // Core Components
 import DemoNavbar from "components/navbars/DemoNavbar.js";
-import DemoFooter from "components/footers/DemoFooter.js";
+import MainNavbar from "components/navbars/MainNavbar.js";
+import MainFooter from "components/footers/MainFooter.js";
 
 // Section Components
 import HeadersSection from "components/sections-page/HeadersSection.js";
@@ -56,7 +57,7 @@ function Sections() {
 
     return (
         <>
-            <DemoNavbar type="dark"/>
+            <MainNavbar type="dark"/>
             <div className="wrapper">
                 <HeadersSection/>
                 {/* {shouldShowMyCampaignsSection ? <MyCampaignsSection/> : <></>} */}
@@ -64,12 +65,12 @@ function Sections() {
                 {/*<BlogsSection/>*/}
                 {/*<TeamsSection/>*/}
                 {/*<ProjectsSection/>*/}
-                <PricingsSection/>
+                {/* <PricingsSection/> */}
                 {/*<TestimonialsSection/>*/}
                 {/* <ContactUsSection/> */}
                 {/* <TablesSection/> */}
                 {/* <AccordionsSection/> */}
-                <DemoFooter/>
+                <MainFooter/>
             </div>
         </>
     );
