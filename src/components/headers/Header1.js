@@ -53,7 +53,7 @@ function Header1() {
                             href="#pablo"
                             onClick={(e) => e.preventDefault()}
                         >
-                            Argon
+                            Next Sale
                         </NavbarBrand>
                         <button
                             aria-controls="navbar-header-1"
@@ -170,10 +170,10 @@ function Header1() {
                             <Col className="mr-auto text-right d-flex justify-content-center flex-column"
                                  lg="5"
                                  md="7">
-                                <h3 className="display-3">XXXXX מערכת דיוור וואטסאפ לעסקים</h3>
+                                
+                                <h3 className="display-3">מערכת Next Sale Follow-Up וואטסאפ לעסקים</h3>
                                 <p className="lead mt-0">
-                                    The time is now for it to be okay to be great. People in this
-                                    world shun people for being great. For being a bright color.
+                                    מערכת מעקב בוואטסאפ לעסקים, זה הזמן לתת למערכת שלנו לעבוד בשבילך.
                                 </p>
                                 <br></br>
                                 <div className="buttons">

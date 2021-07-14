@@ -58,7 +58,10 @@ function MainNavbar(props) {
         id="dark-navbar-main"
       >
         <Container>
-          <img style={{ width: "80px" }} src={require("assets/logo/logo_white_small.png")}/>         
+          <a href="/sections">
+            <img style={{ width: "80px", height: "55px" }} src={require("assets/logo/logo_white_small.png")}/>
+          </a>
+          
           <button
             className="navbar-toggler"
             type="button"
