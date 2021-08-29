@@ -9,6 +9,7 @@ import "assets/scss/argon-design-system.scss?v1.0.0";
 
 import Index from "views/Index.js";
 import Sections from "views/Sections.js";
+import Campaigns from "views/Campaigns.js"
 import Presentation from "views/Presentation.js";
 import AboutUs from "views/examples/AboutUs.js";
 import MainPage from "views/examples/MainPage";
@@ -44,6 +45,11 @@ ReactDOM.render(
           path="/sections"
           exact
           render={(props) => <Sections {...props} />}
+        />
+        <Route
+          path="/campaigns"
+          exact
+          render={(props) => <Campaigns {...props} />}
         />
         <Route
           path="/new-campaign"

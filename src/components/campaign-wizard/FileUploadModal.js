@@ -38,10 +38,11 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                 console.log(err);
             }
             else {
-
+                let columnIndexes = [];
                 let local_data = {}
                 resp.rows[0].map((item, index) => {
                     local_data[index] = { header: item, selectedVal: "none", isNameField: undefined, isPhoneField: undefined, colData: [] }
+                    columnIndexes.push(index);
                 });
 
                 resp.rows.slice(1).map((row, index) => {
@@ -49,23 +50,44 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                     if (row === "undefined") {
                         return "";
                     }
-
-                    row.map((cell, cellIndex) => {
-                        let phoneNumber = phoneNumberCorrection(cell);
-                        if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
-                            if (local_data[cellIndex].isPhoneField == undefined){
-                                local_data[cellIndex].isPhoneField = true;
-                                local_data[cellIndex].isNameField = false;
+                    columnIndexes.forEach(indx => {
+                        if (row[indx] != undefined) {
+                            let phoneNumber = phoneNumberCorrection(row[indx]);
+                            if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
+                                if (local_data[indx].isPhoneField == undefined){
+                                    local_data[indx].isPhoneField = true;
+                                    local_data[indx].isNameField = false;
+                                }
                             }
-                        }
-                        else if (phoneNumber != ""){
-                            if (local_data[cellIndex].isNameField == undefined){
-                                local_data[cellIndex].isNameField = true;
-                                local_data[cellIndex].isPhoneField = false;
+                            else if (phoneNumber != ""){
+                                if (local_data[indx].isNameField == undefined){
+                                    local_data[indx].isNameField = true;
+                                    local_data[indx].isPhoneField = false;
+                                }
                             }
+                            local_data[indx].colData.push(phoneNumber);
                         }
-                        local_data[cellIndex].colData.push(phoneNumber);
+                        else {
+                            local_data[indx].colData.push("");
+                        }
                     });
+
+                    // row.map((cell, cellIndex) => {
+                    //     let phoneNumber = phoneNumberCorrection(cell);
+                    //     if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
+                    //         if (local_data[cellIndex].isPhoneField == undefined){
+                    //             local_data[cellIndex].isPhoneField = true;
+                    //             local_data[cellIndex].isNameField = false;
+                    //         }
+                    //     }
+                    //     else if (phoneNumber != ""){
+                    //         if (local_data[cellIndex].isNameField == undefined){
+                    //             local_data[cellIndex].isNameField = true;
+                    //             local_data[cellIndex].isPhoneField = false;
+                    //         }
+                    //     }
+                    //     local_data[cellIndex].colData.push(phoneNumber);
+                    // });
                 });
 
 
