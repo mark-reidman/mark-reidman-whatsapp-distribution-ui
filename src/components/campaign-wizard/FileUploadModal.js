@@ -11,7 +11,6 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
     const [data, setData] = useState([]);
     const [fileName, setFileName] = useState("");
 
-
     const fileHandler = (event) => {
         let fileObj = event.target.files[0];
 
@@ -42,7 +41,7 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
 
                 let local_data = {}
                 resp.rows[0].map((item, index) => {
-                    local_data[index] = { header: item, isPhone: false, isSelectedByUser: false, colData: [] }
+                    local_data[index] = { header: item, selectedVal: "none", isNameField: undefined, isPhoneField: undefined, colData: [] }
                 });
 
                 resp.rows.slice(1).map((row, index) => {
@@ -52,13 +51,21 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                     }
 
                     row.map((cell, cellIndex) => {
-
                         let phoneNumber = phoneNumberCorrection(cell);
-                        if (phoneNumber !== "") {
-                            local_data[cellIndex].colData.push(phoneNumber);
-                            local_data[cellIndex].isPhone = true;
+                        if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
+                            if (local_data[cellIndex].isPhoneField == undefined){
+                                local_data[cellIndex].isPhoneField = true;
+                                local_data[cellIndex].isNameField = false;
+                            }
                         }
-                    })
+                        else if (phoneNumber != ""){
+                            if (local_data[cellIndex].isNameField == undefined){
+                                local_data[cellIndex].isNameField = true;
+                                local_data[cellIndex].isPhoneField = false;
+                            }
+                        }
+                        local_data[cellIndex].colData.push(phoneNumber);
+                    });
                 });
 
 
@@ -70,8 +77,9 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                     let phone_columns = {}
 
                     Object.keys(local_data).map((key) => {
-                        if (local_data[key].isPhone)
-                            phone_columns[key] = local_data[key]
+                        // if (local_data[key].isPhoneField)
+                        //     phone_columns[key] = local_data[key]
+                        phone_columns[key] = local_data[key]
                     });
                     setData(phone_columns);
                     setErrorMessage("");
@@ -87,23 +95,70 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
     }
 
     const selectColumn = (e) => {
+        
         const id = e.target.id;
-        setData((prevState) => {
-            let newState = prevState
-            newState[id].isSelectedByUser = !newState[id].isSelectedByUser
-            return ({
-                ...newState
-            });
-        });
+        const val = e.target.value;
+        
+        if (e.target != null) {
+            setData((prevState) => {
+                let newState = prevState
+                newState[id].selectedVal = val;
+                Object.keys(newState).map((key) => {
+                    if (key != id){
+                        if (val == "name" && newState[key].selectedVal == "name") {
+                            newState[key].selectedVal = "none";
+                        }
+                        if (val == "phone" && newState[key].selectedVal == "phone") {
+                            newState[key].selectedVal = "none";
+                        }
+                    }
+                }); 
+                
+                return ({
+                    ...newState
+                });
+            }, []);
+        }
     }
 
     const addList = () => {
         let phoneLists = []
+        let phoneIndex = undefined;
+        let nameIndex = undefined;
         Object.keys(data).map((key) => {
-            if (data[key].isSelectedByUser) {
-                phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[key].header, "data": data[key].colData, id: uniqueID()})
+            if (data[key].isPhoneField) {
+                phoneIndex = key;
+            }
+            if (data[key].isNameField) {
+                nameIndex = key;
             }
         });
+
+        let tuples = []
+        for (let i = 0; i < data[phoneIndex].colData.length; i++) {
+            let phn = data[phoneIndex].colData[i];
+            let nm = "";
+            if (i < data[nameIndex].colData.length){
+                nm = data[nameIndex].colData[i]
+            }
+            tuples.push({"phone": phn, "name": nm})
+        }
+        
+        phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[phoneIndex].header, "column_name": data[nameIndex].header,"data": tuples, id: uniqueID()})
+
+        // Object.keys(data).map((key) => {
+        //     // TODO - create tuples of name and phone to send to server
+        //     if (data[key].isPhoneField) {
+        //         tuples = []
+        //         for (let i = 0; i < data[key].colData.length; index++) {
+        //             phn = data[key].colData[i]
+        //             nm = ""
+        //             tuples.push(data[key].colData[i])
+        //         }
+        //         dto = {"fileType": "excel" ,"fileName": fileName, "column": data[key].header, "data": data[key].colData, id: uniqueID()}
+        //         phoneLists.push()
+        //     }
+        // });
         let tmp = distributionList;
         if( tmp["files"] != undefined){
             tmp["files"] = tmp["files"].concat(phoneLists)
@@ -165,7 +220,7 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                         </FormGroup>
                         <FormGroup>
                             <Label htmlFor="campaign-tag" className="col-form-label float-right">
-                                בחר שדות מייצגים מספר טלפון
+                                   בחר שדות מייצגים מספר טלפון ושם לקוח
                             </Label>
                         </FormGroup>
 
@@ -178,17 +233,28 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
 
                                                 return (<th className="text-center">
                                                     <div className="custom-control custom-checkbox">
-                                                        <input
+                                                    <Input style={{ height: "25px", padding: "0 0.75rem" }}
+                                                        id={key}
+                                                        name="column-type"
+                                                        value={data[key].selectedVal}
+                                                        onChange={selectColumn}
+                                                        type="select"
+                                                    >
+                                                        <option defaultValue="none" placeholder="true">בחר</option>
+                                                        <option value="phone" disabled={!data[key].isPhoneField}>מס טלפון</option>
+                                                        <option value="name" disabled={!data[key].isNameField}>שם לקוח</option>
+                                                    </Input>
+                                                        {/* <input
                                                             className="custom-control-input"
                                                             checked={data[key].isSelectedByUser}
                                                             onChange={selectColumn}
                                                             id={key}
-                                                            type="checkbox"
+                                                            type="radio"
                                                         ></input>
                                                         <label
                                                             className="custom-control-label"
                                                             htmlFor={key}
-                                                        ></label>
+                                                        ></label> */}
                                                         {data[key].header}
                                                     </div>
                                                 </th>)

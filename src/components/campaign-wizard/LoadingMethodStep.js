@@ -52,7 +52,7 @@ const LoadingMethodStep = () => {
             <p className="title">קובץ אקסל</p>
           </Button>
           <StartCampaignModal modalOpen={fileUplaodOpen} setModalOpen={setFileUplaodOpen} distributionList={distributionList} setDistributionList={updateDistributionList} />
-          <Button
+          {/* <Button
             className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
@@ -61,8 +61,8 @@ const LoadingMethodStep = () => {
             <i className="fal fa-stream wizard-big-icon green-color"></i>
             <p className="title">העתק/הדבק</p>
           </Button>
-          <CopyPasteModal modalOpen={copyPasteOpen} setModalOpen={setCopyPasteOpen} distributionList={distributionList} setDistributionList={updateDistributionList}  />
-          <Button
+          <CopyPasteModal modalOpen={copyPasteOpen} setModalOpen={setCopyPasteOpen} distributionList={distributionList} setDistributionList={updateDistributionList}  /> */}
+          {/* <Button
             className="btn-footer selectUploadMethodButton"
             color="secondary"
             href="#pablo"
@@ -71,7 +71,7 @@ const LoadingMethodStep = () => {
             <i className="fal fa-cloud-download wizard-big-icon green-color"></i>
             <p className="title">רשימות שמורות</p>
           </Button>
-          <PriviousListModal modalOpen={savedListOpen} setModalOpen={setSavedListOpen} distributionList={distributionList} setDistributionList={updateDistributionList} />
+          <PriviousListModal modalOpen={savedListOpen} setModalOpen={setSavedListOpen} distributionList={distributionList} setDistributionList={updateDistributionList} /> */}
         </Col>
      </Row>
      <Row>

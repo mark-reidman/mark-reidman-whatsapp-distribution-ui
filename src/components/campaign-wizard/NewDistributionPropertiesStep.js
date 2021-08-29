@@ -43,7 +43,7 @@ function useInterval(callback, delay) {
 }
 
 const NewDistributionPropertiesStep = ({}) => {
-    const [timeOfDistribution, setTimeOfDistribution] = React.useState("");
+    const [timeOfDistribution, setTimeOfDistribution] = React.useState(new Date());
     const [state, dispatch] = useContext(WizardContext);
     const [vTabs2, setVTabs2] = React.useState("vTabs2-1");
     const [isGetCodeInProgress, setIsGetCodeInProgress] = React.useState(false);
@@ -51,6 +51,7 @@ const NewDistributionPropertiesStep = ({}) => {
     const [seconds, setSeconds] = React.useState(0);
     const [email, setEmail] = React.useState("");
     const [campaignDistSpeed, setCampaignDistSpeed] = React.useState("");
+
 
     const setCampaignDistSpeedDropDown = (e) => {
       setCampaignDistSpeed(e.target.value);
@@ -131,7 +132,10 @@ const NewDistributionPropertiesStep = ({}) => {
           <Col md="6">
             <FormGroup >
               <label>מתי להתחיל?</label>
-              <DateTime locale="sv-sv" value={timeOfDistribution} setValue={updateTimeOfDistribution} />
+              <DateTime locale="sv-sv"
+                value={timeOfDistribution}
+                initialValue={new Date()}
+                setValue={updateTimeOfDistribution} />
             </FormGroup>
           </Col>
           <Col md="6">

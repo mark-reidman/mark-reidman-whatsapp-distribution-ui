@@ -3,21 +3,27 @@ export const phoneNumberCorrection = (text) => {
 
     let newText = String(text).trim();
     if (newText === "")
-        return "";
+        return String("");
     newText = newText.replace(/\D/g, '');
 
     if (newText.length < 9)
-        return "";
+        return String(text);
 
     //  correction
     if (newText.startsWith("0972"))
-        newText = newText.replace("0972", "972")
+        newText = newText.replace(/^(0972)/, "972");
 
     if (newText.startsWith("05"))
-        newText = newText.replace("05", "9725")
+        newText = newText.replace(/^(05)/, "9725");
 
     if (newText.startsWith("07"))
-        newText = newText.replace("07", "9727")
+        newText = newText.replace(/^(07)/, "9727");
+
+    if (newText.startsWith("5") && newText.length == 9)
+        newText = newText.replace(/^(5)/, "9725");
+
+    if (newText.startsWith("7") && newText.length == 9)
+        newText = newText.replace(/^(7)/, "9727");
 
     if (newText.startsWith("972") && newText.length == 12)
         return newText;

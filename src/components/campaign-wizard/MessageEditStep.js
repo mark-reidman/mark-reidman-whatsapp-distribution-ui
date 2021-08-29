@@ -90,7 +90,20 @@ const MessageEditStep = () => {
               ></Input>
             </FormGroup>
           </Col>
-          </Row>
+        </Row>
+        <Row>
+          <Col md="4">
+          
+          </Col>
+          <Col md="4">
+          
+          </Col>
+          <Col md="4">
+            <span style={{fontSize: "10px" }}>
+          השתמש ב #שם# על מנת לשתול את שם הלקוח בגוף ההודעה **
+          </span>
+          </Col>
+        </Row>
       </Form>
     </>
   );

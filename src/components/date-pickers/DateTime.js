@@ -26,6 +26,7 @@ const DateTime = ({value, setValue, initialValue}) => {
           <ReactDatetime
             value={value}
             initialValue={initialValue}
+            initialViewDate={initialValue}
             onChange={(e)=> setValue(new Date(e))}
             inputProps={{
               placeholder: "Date & Time",
