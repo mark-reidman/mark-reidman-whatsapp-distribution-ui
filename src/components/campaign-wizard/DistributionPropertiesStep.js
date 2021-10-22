@@ -221,7 +221,7 @@ const DistributionPropertiesStep = ({}) => {
                 <Button
                     className={clsx("btn-footer", "pull-right", "selectUploadMethodButton", vTabs2 === "vTabs2-1" ? "active" : "")}
                     color="secondary"
-                    href="#pablo"
+                    href=""
                     onClick={(e) => {
                       e.preventDefault();
                       updatePhoneNumberMethod("client");
@@ -236,7 +236,7 @@ const DistributionPropertiesStep = ({}) => {
                 <Button
                     className={clsx("btn-footer", "pull-right", "selectUploadMethodButton", vTabs2 === "vTabs2-2" ? "active" : "")}
                     color="secondary"
-                    href="#pablo"
+                    href=""
                     onClick={(e) => {
                       e.preventDefault();
                       updatePhoneNumberMethod("system");

@@ -9,7 +9,8 @@ import "assets/scss/argon-design-system.scss?v1.0.0";
 
 import Index from "views/Index.js";
 import Sections from "views/Sections.js";
-import Campaigns from "views/Campaigns.js"
+import CampaignList from "views/CampaignList.js"
+import CampaignStat from 'views/CampaignStat.js'
 import Presentation from "views/Presentation.js";
 import AboutUs from "views/examples/AboutUs.js";
 import MainPage from "views/examples/MainPage";
@@ -31,16 +32,21 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import ResetPage from "views/examples/ResetPage.js";
 import Login from "views/login/Login.js"
+import LoginView from "views/login/LoginView.js"
+
 import NewCampaign from 'views/NewCampaign.js'
 import {AuthContextProvider} from 'oath/AuthContext.js'
+import InviteLink from 'views/InviteLink.js'
 
 
 ReactDOM.render(
   <AuthContextProvider>
     <BrowserRouter>
       <Switch>
-        <Route path="/login" component={ Login }/>
+        <Route path="/login" exact render={(props) => <LoginView {...props} />} />
+        
         <Route path="/index" exact render={(props) => <Index {...props} />} />
+        
         <Route
           path="/sections"
           exact
@@ -49,12 +55,24 @@ ReactDOM.render(
         <Route
           path="/campaigns"
           exact
-          render={(props) => <Campaigns {...props} />}
+          render={(props) => <CampaignList {...props} />}
         />
+
+        <Route
+          path="/campaign/statistics"
+          exact
+          render={(props) => <CampaignStat {...props} />}
+        />
+        
         <Route
           path="/new-campaign"
           exact
           render={(props) => <NewCampaign {...props} />}
+        />
+        <Route
+          path="/share/:id"
+          exact
+          render={(props) => <InviteLink {...props} />}
         />
         <Route
           path="/presentation"
@@ -152,6 +170,7 @@ ReactDOM.render(
           exact
           render={(props) => <ResetPage {...props} />}
         />
+
         {/* <Redirect to="/presentation" /> */}
         <Redirect to="/Login" />
         

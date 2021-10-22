@@ -1,15 +1,15 @@
 import React from 'react';
-import MyCampaignsTable from 'components/campaign/MyCampaignsTable.js'
+import MyCampaignsStatTable from 'components/campaign/MyCampaignsStatTable.js'
 import {WizardContextProvider} from '../campaign-wizard/WizardContext.js'
 
-const MyCampaignsSection = ({}) => {
+const CampaignListSection = ({}) => {
 
   return (
     <>
       <div className="cd-section" id="headers">
         <WizardContextProvider>
             <div className="cd-section" id="headers">
-              <MyCampaignsTable/>
+              <MyCampaignsStatTable/>
             </div>
           </WizardContextProvider>
       </div>
@@ -19,7 +19,7 @@ const MyCampaignsSection = ({}) => {
 
   
 
-export default MyCampaignsSection
+export default CampaignListSection
 
 
 

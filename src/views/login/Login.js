@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-
+import { useLocation } from "react-router-dom";
 // reactstrap components
 import {
   Card,
@@ -17,12 +17,14 @@ import FacebookButton from 'oath/FacebookOath.js';
 
 
 class Login extends React.Component {
+  
   constructor(props) {
     super(props)
 
     this.rememberMeToggle = this.rememberMeToggle.bind(this)
     this.state = {
-      rememberme: false
+      rememberme: false,
+      redirect_location: ''
     }
   }
 
@@ -38,14 +40,19 @@ class Login extends React.Component {
         rememberme: false
       })
     }
-
-    
   }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    if(window.location.state != undefined) {
+      if(window.location.state.redirect != undefined) 
+        this.setState({
+          redirect_location: window.location.state.redirect
+        })
+    }
   }
 
   render() {
@@ -82,10 +89,10 @@ class Login extends React.Component {
                         <br/>
                         <Row>
                           <Col md="6">
-                            <GoogleButton redirect="sections" className="pull-right" rememberme={this.state.rememberme} />
+                            <GoogleButton redirect={this.state.redirect_location} className="pull-right" rememberme={this.state.rememberme} />
                           </Col>
                           <Col md="6">
-                            <FacebookButton redirect="sections" className="pull-left" rememberme={this.state.rememberme}/>
+                            <FacebookButton redirect={this.state.redirect_location} className="pull-left" rememberme={this.state.rememberme}/>
                           </Col>
                         </Row>
                         <br/>

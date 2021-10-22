@@ -11,10 +11,10 @@ import MainNavbar from "components/navbars/MainNavbar.js";
 import MainFooter from "components/footers/MainFooter.js";
 
 // Section Components
-import TablesSection from "components/sections-page/TablesSection.js";
-import MyCampaignsStatSection from "components/sections-page/MyCampaignsStatSection.js"
+import CampaignStatSection from "components/sections-page/CampaignStatSection.js"
 
-function Campaigns() {
+
+function CampaignSat() {
     useEffect(() => {
 
     });
@@ -32,11 +32,10 @@ function Campaigns() {
     return (
         <>
             <MainNavbar type="dark"/>
-            <div className="wrapper">
-                
-                <MyCampaignsStatSection/>
-                           
-                {/* <TablesSection/> */}
+            <div className="wrapper" >
+
+                <CampaignStatSection style={{paddingTop: "150px"}}/>
+                        
                 <MainFooter/>
             </div>
             
@@ -44,4 +43,4 @@ function Campaigns() {
     );
 }
 
-export default Campaigns;
+export default CampaignSat;

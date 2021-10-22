@@ -23,12 +23,17 @@ function Header1() {
     const [modalOpen, setModalOpen] = useState(false);
     const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken]  = useContext(AuthContext);
     const location = useLocation();
+    const [isAdminOperator, setIsAdminOperator] = useState(false);
 
     const newCampaignClick = (e) =>{
-        if(isLogined === true )
+        if(isLogined === true && isAdminOperator === true)
             setModalOpen(true);
-        else
+        else if (isLogined !== true)
             history.push({pathname: "/login", state: { redirect: "/sections" }});
+    }
+
+    const myCampaignClick = (e) =>{
+        history.push({pathname: "/campaigns"});
     }
 
     const startCampaignWizard = (id, name, field) => {
@@ -36,12 +41,29 @@ function Header1() {
     }
 
     useEffect(() => {
+        let isAdmin = false;
+        if( user != null){
+            for (let index = 0; index < user.roles.length; ++index) {
+                const element = user.roles[index];
+                if( element == "ADMIN" || element == "OPERATOR")
+                    isAdmin = true;
+                    setIsAdminOperator(true)
+            }
+        }
+
         console.log(location.state)
+
         if(location.state != undefined){
-            if(location.state.redirected != undefined)
+            if(location.state.redirected != undefined && isAdmin === true) 
                 setModalOpen(true)
         }
+
+        if (user == null)
+            history.push({pathname: "/login", state: { redirect: "/sections" }});
+
+
      }, [location]);
+
 
     return (
         <>
@@ -177,6 +199,7 @@ function Header1() {
                                 </p>
                                 <br></br>
                                 <div className="buttons">
+                                {isAdminOperator ? 
                                     <Button
                                         color="danger"
                                         href="#pablo"
@@ -184,6 +207,17 @@ function Header1() {
                                     >
                                         התחל קמפיין חדש
                                     </Button>
+                                    :
+                                    <></>
+                                }
+                                    <Button
+                                        color="danger"
+                                        href="#pablo"
+                                        onClick={myCampaignClick}
+                                    >
+                                        צפה בקמפיינים שלי
+                                    </Button>
+                                    
                                     <StartCampaignModal modalOpen={modalOpen} setModalOpen={setModalOpen} startCampaignWizard={startCampaignWizard} />
                                 </div>
                             </Col>

@@ -98,4 +98,40 @@ export class OrderService {
             console.log(e)
         }
     }
+
+    async getOrdersStat(order_id) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/' + order_id  + '/statistics', {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async getOrdersStatAgg(order_id, agg) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/' + order_id  + '/statistics/' + agg, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async getOrdersInvite(order_id) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/' + order_id  + '/invite', {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async assignOrderByInviteLink(code) {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/invite/' + code, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
   }

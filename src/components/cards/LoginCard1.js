@@ -30,7 +30,7 @@ function LoginCard1() {
             <Button
               className="btn-neutral btn-icon"
               color="default"
-              href="#pablo"
+              href=""
               onClick={(e) => e.preventDefault()}
             >
               <span className="btn-inner--icon">
@@ -44,7 +44,7 @@ function LoginCard1() {
             <Button
               className="btn-neutral btn-icon"
               color="default"
-              href="#pablo"
+              href=""
               onClick={(e) => e.preventDefault()}
             >
               <span className="btn-inner--icon">
