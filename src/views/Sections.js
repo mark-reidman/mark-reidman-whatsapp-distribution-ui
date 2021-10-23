@@ -23,6 +23,7 @@ import HeadersSection from "components/sections-page/HeadersSection.js";
 // import TablesSection from "components/sections-page/TablesSection.js";
 // import AccordionsSection from "components/sections-page/AccordionsSection.js";
 // import MyCampaignsSection from "components/sections-page/MyCampaignsSection.js"
+import CampaignListSection from "components/sections-page/CampaignListSection.js"
 
 function Sections() {
     const [shouldShowMyCampaignsSection, setShouldShowMyCampaignsSection] = useState(false);
@@ -50,6 +51,7 @@ function Sections() {
             <MainNavbar type="dark"/>
             <div className="wrapper">
                 <HeadersSection/>
+                <CampaignListSection/>
                 {/* {shouldShowMyCampaignsSection ? <MyCampaignsSection/> : <></>} */}
                 {/* <FeaturesSection/> */}
                 {/*<BlogsSection/>*/}

@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
+
+
 // reactstrap components
 import {
   Collapse,
@@ -23,7 +25,9 @@ import {AuthContext} from '../../oath/AuthContext.js'
 
 function MainNavbar(props) {
   const [collapseOpen, toggleCollapse] = React.useState(false);
+  
   const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken, logout] = React.useContext(AuthContext);
+  const history = useHistory();
 
   console.log(user);
 
@@ -58,7 +62,7 @@ function MainNavbar(props) {
         id="dark-navbar-main"
       >
         <Container>
-          <a href="/sections">
+          <a onClick={() => history.push({pathname: "/sections"}) }>
             <img style={{ width: "80px", height: "55px" }} src={require("assets/logo/logo_white_small.png")}/>
           </a>
           
@@ -340,15 +344,15 @@ function MainNavbar(props) {
 
                 </DropdownToggle>
                 <DropdownMenu aria-labelledby="navbar-default_dropdown_1" right>
-                  <DropdownItem
+                  {/* <DropdownItem
                     href="#pablo"
                     onClick={(e) => e.preventDefault()}
                   >
                     Your profile
                   </DropdownItem>
-                  <DropdownItem divider></DropdownItem>
+                  <DropdownItem divider></DropdownItem> */}
                   <DropdownItem
-                    href="#pablo"
+                    href="/login"
                     onClick={(e) => logout()}
                   >
                     Logout

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Card, CardBody, CardImg, CardImgOverlay, CardTitle, CardText } from "reactstrap";
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
+import NumberFormat from 'react-number-format';
 
 const CampaignStatInfo = ({ }) => {
     const [errorMessage, setErrorMessage] = useState("");
@@ -72,81 +73,116 @@ const CampaignStatInfo = ({ }) => {
                     {campaignStat != undefined ?
                     <Row>
                         <Col lg="3">
-                            <Card className="bg-primary" style={{ padding: "20px", paddingBottom:"104px", textAlign: "center" }}>
+                            <Card className="bg-primary campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">סה״כ רשומות</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaign["total_counter"]}
+                                    <CardTitle className="h6 text-white mb-2">סה״כ רשומות</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaign["total_counter"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
+                                        
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3" >
-                            <Card className="bg-primary" style={{ padding: "20px", textAlign: "center" }}>
+                            <Card className="bg-primary campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">הודעות ראשונות שנשלחו</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaignStat["total_sent_messages"]}
+                                    <CardTitle className="h6 text-white mb-2">הודעות ראשונות שנשלחו</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaignStat["total_sent_messages"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3" >
-                            <Card className="bg-primary" style={{ padding: "20px", paddingBottom:"62px", textAlign: "center" }}>
+                            <Card className="bg-primary campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">צפו בהודעה ראשונה</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaignStat["total_sent_messages_seen"]}
+                                    <CardTitle className="h6 text-white mb-2">צפו בהודעה ראשונה</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaignStat["total_sent_messages_seen"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
+                                        
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3" >
-                            <Card className="bg-default" style={{ padding: "20px", paddingBottom:"62px", textAlign: "center" }}>
+                            <Card className="bg-default campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">הגיבו להודעה ראשונה</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaignStat["first_response_messages"]}
+                                    <CardTitle className="h6 text-white mb-2">הגיבו להודעה ראשונה</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaignStat["first_response_messages"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
+                                        
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3" >
-                            <Card className="bg-default" style={{ padding: "20px", textAlign: "center" }}>
+                            <Card className="bg-default campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">התכתבות אחרי הודעה ראשונה</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaignStat["second_response_messages"]}
+                                    <CardTitle className="h6 text-white mb-2">התכתבות אחרי הודעה ראשונה</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaignStat["second_response_messages"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
+                                        
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
 
                         <Col lg="3">
-                            <Card className="bg-success" style={{ padding: "20px", textAlign: "center" }}>
+                            <Card className="bg-success campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">סה״כ לידים חדשים</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
-                                        {campaignStat["total_leads"]}
+                                    <CardTitle className="h6 text-white mb-2">סה״כ לידים חדשים</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
+                                    <NumberFormat
+                                        value={campaignStat["total_leads"]}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value, props) => <span {...props}>{value}</span>}
+                                    />
+                                        
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3">
-                            <Card className="bg-warning" style={{ padding: "20px", textAlign: "center" }}>
+                            <Card className="bg-warning campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">אחוז המרה הודעה/ליד</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
+                                    <CardTitle className="h6 text-white mb-2">אחוז המרה הודעה/ליד</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
                                         {campaignStat["converstion_rate_lead_perc"]} %
                                     </CardText>
                                 </div>
                             </Card>
                         </Col>
                         <Col lg="3">
-                            <Card className="bg-warning" style={{ padding: "20px", textAlign: "center" }}>
+                            <Card className="bg-warning campaignStatInfoBox">
                                 <div className="content">
-                                    <CardTitle className="h3 text-white mb-2">אחוז חשיפה להודעה</CardTitle>
-                                    <CardText className="h1 text-white font-weight-bold">
+                                    <CardTitle className="h6 text-white mb-2">אחוז חשיפה להודעה</CardTitle>
+                                    <CardText className="h3 text-white font-weight-bold">
                                         {campaignStat["converstion_rate_seen_perc"]} % 
                                     </CardText>
                                 </div>

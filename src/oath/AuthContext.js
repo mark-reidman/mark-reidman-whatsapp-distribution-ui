@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from 'axios';
-
 export const AuthContext = React.createContext()
 
 const SERVER_URL = process.env.REACT_APP_API_URL;
@@ -9,14 +8,10 @@ export const AuthContextProvider = (props) => {
     const [user, setUser] = useState(null);
     const [isLogined, setIsLogined] = useState(false);
     const [token, setToken] = useState(null);
-    
 
     const setAuthUser = (data, rememberme) => {
         setUser(data);
         sessionStorage.setItem("user", JSON.stringify(data));
-        // if (rememberme) {
-        //     sessionStorage.setItem("user", JSON.stringify(data));
-        // }
     };
 
     const setAuthIsLogined = (boolean) => {
@@ -47,6 +42,7 @@ export const AuthContextProvider = (props) => {
     }
 
     useEffect(() => {
+        
         const user_data = JSON.parse(sessionStorage.getItem('user'));
         const user_isLogined = JSON.parse(sessionStorage.getItem('isLogined'));
         // const user_token = JSON.parse(sessionStorage.getItem('token'));

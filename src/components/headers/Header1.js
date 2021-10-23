@@ -41,6 +41,7 @@ function Header1() {
     }
 
     useEffect(() => {
+        
         let isAdmin = false;
         if( user != null){
             for (let index = 0; index < user.roles.length; ++index) {
@@ -53,10 +54,10 @@ function Header1() {
 
         console.log(location.state)
 
-        if(location.state != undefined){
-            if(location.state.redirected != undefined && isAdmin === true) 
-                setModalOpen(true)
-        }
+        // if(location.state != undefined){
+        //     if(location.state.redirected != undefined && isAdmin === true) 
+        //         setModalOpen(true)
+        // }
 
         if (user == null)
             history.push({pathname: "/login", state: { redirect: "/sections" }});
@@ -72,7 +73,7 @@ function Header1() {
                     <Container>
                         <NavbarBrand
                             className="text-white"
-                            href="#pablo"
+                            href=""
                             onClick={(e) => e.preventDefault()}
                         >
                             Next Sale
@@ -126,7 +127,7 @@ function Header1() {
                                 <NavItem>
                                     <NavLink
                                         className="text-white"
-                                        href="#pablo"
+                                        href=""
                                         onClick={(e) => e.preventDefault()}
                                     >
                                         Home
@@ -135,7 +136,7 @@ function Header1() {
                                 <NavItem>
                                     <NavLink
                                         className="text-white"
-                                        href="#pablo"
+                                        href=""
                                         onClick={(e) => e.preventDefault()}
                                     >
                                         About Us
@@ -144,7 +145,7 @@ function Header1() {
                                 <NavItem>
                                     <NavLink
                                         className="text-white"
-                                        href="#pablo"
+                                        href=""
                                         onClick={(e) => e.preventDefault()}
                                     >
                                         Contact Us
@@ -180,7 +181,7 @@ function Header1() {
                         </UncontrolledCollapse>
                     </Container>
                 </Navbar>
-                <div className="page-header">
+                <div className="page-header" style={{minHeight:650}}>
                     <div
                         className="page-header-image"
                         style={{
@@ -210,13 +211,13 @@ function Header1() {
                                     :
                                     <></>
                                 }
-                                    <Button
+                                    {/* <Button
                                         color="danger"
                                         href="#pablo"
                                         onClick={myCampaignClick}
                                     >
                                         צפה בקמפיינים שלי
-                                    </Button>
+                                    </Button> */}
                                     
                                     <StartCampaignModal modalOpen={modalOpen} setModalOpen={setModalOpen} startCampaignWizard={startCampaignWizard} />
                                 </div>

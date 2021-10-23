@@ -119,7 +119,7 @@ const MyCampaignsStatTable = ({ }) => {
                 <Container fluid>
                     <Row>
                         <Col className="mx-auto text-center" lg="7" md="6">
-                            <h3 style={{ marginTop: "120px" }} className="display-3"> {isLoading ? <Spinner color="" type="border" size="lg"></Spinner> : <></>} קמפיינים פעילים </h3>
+                            <h3 className="display-3"> {isLoading ? <Spinner color="" type="border" size="lg"></Spinner> : <></>} קמפיינים פעילים </h3>
                             {campaigns.length == 0 ?
                                 <p className="lead">
                                     אין קמפיינים פעילים עבורך
@@ -141,7 +141,11 @@ const MyCampaignsStatTable = ({ }) => {
                                         <th>קצב התקדמות</th>
                                         <th>סטאטוס</th>
                                         <th>שם קמפיין</th>
-                                        <th>מס קמפיין</th>
+                                        {isAdmin ?
+                                            <th>מס קמפיין</th>
+                                            :
+                                            <></>
+                                        }
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -196,8 +200,11 @@ const MyCampaignsStatTable = ({ }) => {
                                             </td>
                                             <td>{statesTransalte(item["status"])}</td>
                                             <td>{item["name"]}</td>
-                                            <td>{item["id"]}</td>
-
+                                            {isAdmin ?
+                                                <td>{item["id"]}</td>
+                                                :
+                                                <></>
+                                            }
                                         </tr>)
                                     })
                                     }

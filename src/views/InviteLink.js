@@ -21,7 +21,7 @@ function InviteLink(props) {
             let service = new OrderService();
             // get code 
             service.assignOrderByInviteLink(props.match.params.id).then((res) => {
-                history.push({pathname: "/campaigns"});
+                history.push({pathname: "/sections"});
             });
         }
         else if (isLogined !== true) {
