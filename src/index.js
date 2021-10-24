@@ -45,18 +45,18 @@ ReactDOM.render(
       <Switch>
         <Route path="/login" exact render={(props) => <LoginView {...props} />} />
         
-        <Route path="/index" exact render={(props) => <Index {...props} />} />
-        
+        {/* <Route path="/index" exact render={(props) => <Index {...props} />} /> */}
+
         <Route
           path="/sections"
           exact
           render={(props) => <Sections {...props} />}
         />
-        <Route
+        {/* <Route
           path="/campaigns"
           exact
           render={(props) => <CampaignList {...props} />}
-        />
+        /> */}
 
         <Route
           path="/campaign/statistics"
@@ -74,7 +74,7 @@ ReactDOM.render(
           exact
           render={(props) => <InviteLink {...props} />}
         />
-        <Route
+        {/* <Route
           path="/presentation"
           exact
           render={(props) => <Presentation {...props} />}
@@ -169,7 +169,7 @@ ReactDOM.render(
           path="/reset-page"
           exact
           render={(props) => <ResetPage {...props} />}
-        />
+        /> */}
 
         {/* <Redirect to="/presentation" /> */}
         <Redirect to="/Login" />

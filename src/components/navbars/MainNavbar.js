@@ -82,12 +82,7 @@ function MainNavbar(props) {
             <div className="navbar-collapse-header">
               <Row>
                 <Col className="collapse-brand" xs="6">
-                  <Link to="/index">
-                    <img
-                      alt="..."
-                      src={require("assets/img/brand/blue.png")}
-                    ></img>
-                  </Link>
+                  <a onClick={() => history.push({pathname: "/sections"}) }></a>
                 </Col>
                 <Col className="collapse-close" xs="6">
                   <button

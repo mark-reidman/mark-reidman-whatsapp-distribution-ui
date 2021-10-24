@@ -196,7 +196,7 @@ function Header1() {
                                 
                                 <h3 className="display-3">מערכת Next Sale Follow-Up וואטסאפ לעסקים</h3>
                                 <p className="lead mt-0">
-                                    מערכת מעקב בוואטסאפ לעסקים, זה הזמן לתת למערכת שלנו לעבוד בשבילך.
+                                    מערכת מעקב בוואטסאפ לעסקים, זה הזמן לתת למערכת שלנו לעבוד בשבילך
                                 </p>
                                 <br></br>
                                 <div className="buttons">
