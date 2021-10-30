@@ -82,12 +82,14 @@ const NewDistributionPropertiesStep = ({}) => {
     useEffect(() => {
       
       setEmail(state.campaignOwnerEmail);
-      if(state.campaignStartDate != undefined && state.setCampaignStartDate != null && state.setCampaignStartDate != "") {
-        setTimeOfDistribution(state.campaignStartDate);
-      }
-      else{
-        setTimeOfDistribution(new Date());
-      }
+      // if(state.campaignStartDate != undefined && state.setCampaignStartDate != null && state.setCampaignStartDate != "") {
+      //   setTimeOfDistribution(state.campaignStartDate);
+      // }
+      // else{
+      //   setTimeOfDistribution(new Date());
+      // }
+      // setTimeOfDistribution(new Date());
+      setTimeOfDistribution(state.campaignStartDate);
       
       setCampaignDistSpeed(state.campaignDistributionSpeed);
       if(state.setCampaignPhoneType === "")
