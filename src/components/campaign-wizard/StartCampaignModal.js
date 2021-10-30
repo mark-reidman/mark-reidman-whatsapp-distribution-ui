@@ -16,7 +16,7 @@ const StartCampaignModal = ({modalOpen, setModalOpen, startCampaignWizard}) => {
   }
 
   const setCampaignFieldDropDown = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setCampaignField(e.target.value);
   }
 

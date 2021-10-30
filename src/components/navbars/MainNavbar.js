@@ -29,7 +29,7 @@ function MainNavbar(props) {
   const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken, logout] = React.useContext(AuthContext);
   const history = useHistory();
 
-  console.log(user);
+  //console.log(user);
 
   React.useEffect(() => {
     let headroom = new Headroom(document.getElementById("dark-navbar-main"));

@@ -52,7 +52,7 @@ function Header1() {
             }
         }
 
-        console.log(location.state)
+        //console.log(location.state)
 
         // if(location.state != undefined){
         //     if(location.state.redirected != undefined && isAdmin === true) 

@@ -25,7 +25,7 @@ function DemoNavbar(props) {
   const [collapseOpen, toggleCollapse] = React.useState(false);
   const [user, setAuthUser, isLogined, setAuthIsLogined, token, setAuthToken, logout] = React.useContext(AuthContext);
 
-  console.log(user);
+  //console.log(user);
 
   React.useEffect(() => {
     let headroom = new Headroom(document.getElementById("dark-navbar-main"));

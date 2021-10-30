@@ -19,7 +19,7 @@ const PriviousListModal = ({ modalOpen, setModalOpen, distributionList, setDistr
     }
 
     const selectList = (item) => {
-        console.log(item);
+        //console.log(item);
         
         let tmp = distributionList;
         if (item["fileType"] != undefined) {
