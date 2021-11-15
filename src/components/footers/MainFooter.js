@@ -47,7 +47,7 @@ function MainFooter() {
             </ul>
           </nav>
           <div className="copyright text-right">
-            © {new Date().getFullYear()}, Next Sale .
+            © 2020, Next Sale .
           </div>
         </Container>
       </footer>
