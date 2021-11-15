@@ -28,6 +28,12 @@ const MyCampaignsStatTable = ({ }) => {
     const [shareModalOpen, setShareModalOpen] = useState(false);
     const [shareCampaignLink, setShareCampaignLink] = useState("");
 
+    const [stopModalOpen, setStopModalOpen] = useState(false);
+    const [stopCampaignId, setStopCampaignId] = useState(undefined);
+    
+    const [startModalOpen, setStartModalOpen] = useState(false);
+    const [startCampaignId, setStartCampaignId] = useState(undefined);
+
     useEffect(() => {
 
         if (user != null) {
@@ -60,12 +66,46 @@ const MyCampaignsStatTable = ({ }) => {
         setDeleteModalOpen(!deleteModalOpen)
     }
 
+    const toggleSureStopModal = () => {
+        setStopModalOpen(!stopModalOpen)
+    }
+
+    const toggleSureStartModal = () => {
+        setStartModalOpen(!startModalOpen)
+    }
+
     const deleteCampaign = () => {
         if(deleteCampaignId != undefined) {
+            let service = new OrderService();
+            service.delete_campaign(deleteCampaignId).then((res) => {
+                get_orders();
+            });
             toggleSureDeleteModal();
-
             setDeleteCampaignId(undefined);
-            get_orders();
+        }
+        
+    }
+
+    const stopCampaign = () => {
+        if(stopCampaignId != undefined) {
+            let service = new OrderService();
+            service.stop_campaign(stopCampaignId).then((res) => {
+                get_orders();
+            });
+            toggleSureStopModal();
+            setStopCampaignId(undefined);
+        }
+        
+    }
+
+    const startCampaign = () => {
+        if(startCampaignId != undefined) {
+            let service = new OrderService();
+            service.start_campaign(startCampaignId).then((res) => {
+                get_orders();
+            });
+            toggleSureStartModal();
+            setStartCampaignId(undefined);
         }
         
     }
@@ -73,6 +113,17 @@ const MyCampaignsStatTable = ({ }) => {
     const deleteCampaignSure = (orderid) => {
         setDeleteCampaignId(orderid);
         toggleSureDeleteModal();
+    }
+
+    const stopCampaignSure = (orderid) => {
+        setStopCampaignId(orderid);
+        toggleSureStopModal();
+
+    }
+
+    const startCampaignSure = (orderid) => {
+        setStartCampaignId(orderid);
+        toggleSureStartModal();
 
     }
 
@@ -81,6 +132,8 @@ const MyCampaignsStatTable = ({ }) => {
             case "NEW": return "חדש"
             case "COMPLETED": return "הסתיים"
             case "INPROGRESS": return "בהפצה"
+            case "READY": return "מוכן"
+
             default: return status
         }
     }
@@ -135,7 +188,7 @@ const MyCampaignsStatTable = ({ }) => {
                             <Table className="table-pricing align-center" responsive>
                                 <thead className="text-primary">
                                     <tr className="bg-primary text-white">
-                                        <th></th>
+                                        <th>פעולות</th>
                                         <th>תאריך התחלה</th>
                                         <th>נמענים</th>
                                         <th>קצב התקדמות</th>
@@ -152,7 +205,8 @@ const MyCampaignsStatTable = ({ }) => {
                                     {campaigns.map((item, index) => {
                                         return (<tr key={String(index)}>
                                             <td>
-                                                {/* {isAdmin ?
+                                                {isAdmin ?
+                                                    <>
                                                     <Button
                                                         color="danger"
                                                         onClick={(e) => deleteCampaignSure(item["id"])}
@@ -162,8 +216,27 @@ const MyCampaignsStatTable = ({ }) => {
                                                         {isOrderLoadingID == item["id"] ? "טוען" : "מחק"}
 
                                                     </Button>
+                                                    <Button
+                                                        color="warning"
+                                                        onClick={(e) => stopCampaignSure(item["id"])}
+                                                        size="sm"
+                                                    >
+                                                        {isOrderLoadingID == item["id"] ? <Spinner color="" type="grow" size="sm"></Spinner> : <></>}
+                                                        {isOrderLoadingID == item["id"] ? "טוען" : "עצור"}
+
+                                                    </Button>
+                                                    <Button
+                                                        color="default"
+                                                        onClick={(e) => startCampaignSure(item["id"])}
+                                                        size="sm"
+                                                    >
+                                                        {isOrderLoadingID == item["id"] ? <Spinner color="" type="grow" size="sm"></Spinner> : <></>}
+                                                        {isOrderLoadingID == item["id"] ? "טוען" : "התחל"}
+
+                                                    </Button>
+                                                    </>
                                                     : <></>
-                                                } */}
+                                                }
 
                                                 {isAdmin || isOperator ?
                                                     <Button
@@ -187,7 +260,6 @@ const MyCampaignsStatTable = ({ }) => {
 
                                                 </Button>
                                             </td>
-                                            {/* <td>{item["update_date"]}</td> */}
                                             <td>{item["start_date"]}</td>
                                             <td>{item["total_counter"]}</td>
                                             <td>
@@ -282,6 +354,66 @@ const MyCampaignsStatTable = ({ }) => {
                     </Button>
                     <Button className="float-right" color="default" type="button" onClick={toggleShareModal}>
                         סגור
+                    </Button>
+                    
+                </div>
+            </Modal>
+            
+            <Modal
+                isOpen={stopModalOpen}
+                toggle={toggleSureStopModal}
+                    className="modal-sm"
+                    modalClassName=" bd-example-modal-sm"
+            >
+                <div className="modal-header">
+                    <h5 className="modal-title float-right" id="exampleModalLabel">
+                        אישור עצירה
+                    </h5>
+                    <button
+                        aria-label="Close"
+                        className="close"
+                        onClick={toggleSureStopModal}
+                        type="button"
+                    >
+                        <span aria-hidden={true}>×</span>
+                    </button>
+                </div>
+                <div className="modal-body bg-secondary">
+                    <h2>אתה ממש בטוח?</h2>
+                    <h4>לחץ על עצירה על מנת לעצור ריצה של קמפיין</h4>
+
+                    <Button className="float-right" color="danger" type="button" onClick={stopCampaign}>
+                        עצירה
+                    </Button>
+                    
+                </div>
+            </Modal>
+        
+            <Modal
+                isOpen={startModalOpen}
+                toggle={toggleSureStartModal}
+                    className="modal-sm"
+                    modalClassName=" bd-example-modal-sm"
+            >
+                <div className="modal-header">
+                    <h5 className="modal-title float-right" id="exampleModalLabel">
+                        אישור התחלה
+                    </h5>
+                    <button
+                        aria-label="Close"
+                        className="close"
+                        onClick={toggleSureStartModal}
+                        type="button"
+                    >
+                        <span aria-hidden={true}>×</span>
+                    </button>
+                </div>
+                <div className="modal-body bg-secondary">
+                    <h2>אתה ממש בטוח?</h2>
+                    <h4>לחץ על התחל קמפיין על מנת לנתחיל ריצה של קמפיין</h4>
+
+                    <Button className="float-right" color="danger" type="button" onClick={startCampaign}>
+                        התחל קמפיין
                     </Button>
                     
                 </div>

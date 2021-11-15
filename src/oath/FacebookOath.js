@@ -30,7 +30,7 @@ const FacebookButton = ({redirect, rememberme}) => {
             setAuthIsLogined(true)
             setIsGetSigninProgress(false)
             setTimeout(()=>{
-              history.push({pathname: redirect, state: {redirected: true}});
+              history.push({pathname: (redirect.startsWith("/") ? "" : "/") + redirect, state: {redirected: true}});
             }, 500)
         } catch(e) {
             console.log(e)

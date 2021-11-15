@@ -134,4 +134,31 @@ export class OrderService {
             console.log(e)
         }
     }
+
+    async stop_campaign(campaign_id) {
+        try {
+            const res = await axios.post(SERVER_URL + '/cron/stop/' + campaign_id, {}, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async start_campaign(campaign_id) {
+        try {
+            const res = await axios.post(SERVER_URL + '/cron/start/' + campaign_id, {}, {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async delete_campaign(campaign_id) {
+        try {
+            const res = await axios.post(SERVER_URL + '/cron/delete/' + campaign_id, {} ,{withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
   }
