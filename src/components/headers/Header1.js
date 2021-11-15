@@ -60,7 +60,7 @@ function Header1() {
         // }
 
         if (user == null)
-            history.push({pathname: "/login", state: { redirect: "/sections" }});
+            history.push({pathname: "/login", state: { redirect: "sections" }});
 
 
      }, [location]);
