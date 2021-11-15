@@ -24,6 +24,7 @@ const initialState = {
     campaignPaymentMethod: null,
     campaignPaymentId: null,
     campaignTestNumberOne: null,
+    campaignTestNumberOneName: null,
     campaignTestNumberTwo: null,
     campaignTestNumberThree: null,
     campaignPromocode: null,
@@ -50,6 +51,7 @@ export const actionTypes = {
     setCampaignPaymentMethod: 'setCampaignPaymentMethod',
     setCampaignPaymentId: 'setCampaignPaymentId',
     setCampaignTestNumberOne: "setCampaignTestNumberOne",
+    setCampaignTestNumberOneName: "setCampaignTestNumberOneName",
     setCampaignTestNumberTwo: "setCampaignTestNumberTwo",
     setCampaignTestNumberThree: "setCampaignTestNumberThree",
     setCampaignDistributionSpeed: "setCampaignDistributionSpeed",
@@ -191,6 +193,11 @@ const reducer = (state, action) => {
         case actionTypes.setCampaignTotalContacts:
             new_state =  {...state, 
                 campaignTotalContacts: action.payload
+            };
+            break;
+        case actionTypes.setCampaignTestNumberOneName:
+            new_state = {...state,
+                campaignTestNumberOneName: action.payload
             };
             break;
             

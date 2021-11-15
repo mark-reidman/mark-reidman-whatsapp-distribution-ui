@@ -63,7 +63,7 @@ function MainNavbar(props) {
       >
         <Container>
           <a onClick={() => history.push({pathname: "/sections"}) }>
-            <img style={{ width: "80px", height: "55px" }} src={require("assets/logo/logo_white_small.png")}/>
+            <img style={{ width: "130px" }} src={require("assets/logo/LOGO PNG-01.png")}/>
           </a>
           
           <button

@@ -26,7 +26,7 @@ function NavbarLogin() {
       <Navbar className="navbar-dark bg-primary" expand="lg">
         <Container>
           <a href="/sections">
-            <img style={{ width: "80px", height: "55px" }} src={require("assets/logo/logo_white_small.png")}/>
+            <img style={{ width: "130px"}} src={require("assets/logo/LOGO PNG-01.png")}/>
           </a>
           <button
             className="navbar-toggler"

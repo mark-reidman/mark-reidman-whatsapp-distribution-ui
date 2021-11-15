@@ -24,6 +24,8 @@ const TestBeforeApproveStep = () => {
     const [isSendInProgress, setIsSendInProgress] = React.useState(false);
     const [didSendTestMessage, setDidSendTestMessage] = React.useState(false);
     const [numOne, setNumOne] = React.useState("");
+    const [numOneName, setNumOneName] = React.useState("");
+    
     const [isNumOneValid, setIsNumOneValid] = React.useState(false);
     // const [numTwo, setNumTwo] = React.useState("");
     // const [numThree, setNumThree] = React.useState("");
@@ -42,6 +44,11 @@ const TestBeforeApproveStep = () => {
             setIsNumOneValid(false);
         }
         dispatch({type: actionTypes.setCampaignTestNumberOne, payload: phoneNumber });
+    }
+
+    const updateNumOneName = (e) => {
+        setNumOneName(e.target.value);
+        dispatch({type: actionTypes.setCampaignTestNumberOneName, payload: e.target.value });
     }
 
     // const updateNumTwo = (e) => {
@@ -157,6 +164,19 @@ const TestBeforeApproveStep = () => {
                                         type="number"
                                     ></Input>
                                 </InputGroup>
+                            </FormGroup>
+                        </FormGroup>
+                        <FormGroup >
+                            <label>שם הלקוח</label>
+                            <FormGroup>
+ 
+                                <Input
+                                    placeholder=""
+                                    value={numOneName}
+                                    onChange={updateNumOneName}
+                                    type="text"
+                                ></Input>
+                                
                             </FormGroup>
                         </FormGroup>
                     </Col>

@@ -194,7 +194,8 @@ function Header1() {
                                  lg="5"
                                  md="7">
                                 
-                                <h3 className="display-3">מערכת Next Sale Follow-Up וואטסאפ לעסקים</h3>
+                                {/* <h3 className="display-3">מערכת Next Sale Follow-Up וואטסאפ לעסקים</h3> */}
+                                <img alt="..." src={require("assets/logo/LOGO PNG-02.png")}></img>
                                 <p className="lead mt-0">
                                     מערכת מעקב בוואטסאפ לעסקים, זה הזמן לתת למערכת שלנו לעבוד בשבילך
                                 </p>
