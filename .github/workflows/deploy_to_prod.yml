@@ -23,6 +23,9 @@ jobs:
     - uses: actions/checkout@master
       with:
         ref: ${{ github.event.inputs.version }}
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
     - name: NPM isntall
       run: |
         npm config set "@fortawesome:registry" https://npm.fontawesome.com/
