@@ -9,8 +9,9 @@ import "assets/scss/argon-design-system.scss?v1.0.0";
 
 import Index from "views/Index.js";
 import Sections from "views/Sections.js";
-import CampaignList from "views/CampaignList.js"
-import CampaignStat from 'views/CampaignStat.js'
+import CampaignList from "views/CampaignList.js";
+import CampaignStat from 'views/CampaignStat.js';
+import LeadReview from 'views/LeadReview.js';
 import Presentation from "views/Presentation.js";
 import AboutUs from "views/examples/AboutUs.js";
 import MainPage from "views/examples/MainPage";
@@ -68,6 +69,11 @@ ReactDOM.render(
           path="/new-campaign"
           exact
           render={(props) => <NewCampaign {...props} />}
+        />
+        <Route
+          path="/review"
+          exact
+          render={(props) => <LeadReview {...props} />}
         />
         <Route
           path="/share/:id"

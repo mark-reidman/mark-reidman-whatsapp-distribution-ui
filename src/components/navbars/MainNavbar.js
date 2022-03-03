@@ -99,6 +99,8 @@ function MainNavbar(props) {
               className="navbar-nav-hover align-items-lg-center ml-lg-auto"
               navbar
             >
+
+
               {/* <UncontrolledDropdown nav>
                 <DropdownToggle
                   data-toggle="dropdown"
@@ -351,6 +353,12 @@ function MainNavbar(props) {
                     onClick={(e) => logout()}
                   >
                     Logout
+                  </DropdownItem>
+                  <DropdownItem
+                    href="/review"
+                    
+                  >
+                    Lead Review
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

@@ -81,6 +81,15 @@ export class OrderService {
         }
     }
 
+    async getAllOrdersSimple() {
+        try {
+            const res = await axios.get(SERVER_URL + '/order/all/simple', {withCredentials: !IS_DEV_MODE})
+            return res;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     async getOrdersCount() {
         try {
             const res = await axios.get(SERVER_URL + '/order/all/total', {withCredentials: !IS_DEV_MODE})
