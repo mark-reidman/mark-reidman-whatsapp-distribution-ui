@@ -18,6 +18,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
     - name: NPM isntall
       run: |
         npm config set "@fortawesome:registry" https://npm.fontawesome.com/
