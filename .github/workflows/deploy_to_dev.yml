@@ -21,7 +21,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-        cache: 'npm'
     - name: NPM isntall
       run: |
         npm config set "@fortawesome:registry" https://npm.fontawesome.com/
