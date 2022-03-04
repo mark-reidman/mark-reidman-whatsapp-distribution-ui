@@ -147,15 +147,54 @@ const ConversationReviewTable = (props) => {
                         <Table className="align-center" responsive >
                         <thead className="text-primary">
                             <tr className="bg-primary text-white">
-                                <th>אישור ליד</th>
-                                <th>הודעות</th>
-                                <th>מס ליד</th>
                                 <th>תאריך</th>
+                                <th>מס ליד</th>
+                                <th>הודעות</th>
+                                <th>אישור ליד</th>
                             </tr>
                         </thead>
                         <tbody>
                             {conversations.map((item, index) => {
                                 return (<tr key={String(index)}>
+                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["create_date"].split(" ")[0]}<br/>{item["lead"]["create_date"].split(" ")[1]} </td>
+                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["id"]}</td>
+                                    <td style={{paddingRight: "0", paddingLeft: "0"}}>
+                                        <Table responsive>
+                                            <thead>
+                                            <tr>
+                                                <th>טקסט</th>
+                                                <th>סנטימנט</th>
+                                                
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {item["messages"].map((msg, index) => {
+                                                return (
+                                                    <tr key={String(index)}>
+                                                        
+                                                        <td style={{ verticalAlign:"middle", whiteSpace:"normal", paddingRight: "0", paddingLeft: "0",  direction: "rtl" }}>{msg["message_txt"]}</td>
+                                                        <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
+                                                            <ButtonGroup>
+                                                                {radios.map((radio, index) => (
+                                                                <Button
+                                                                    color={msg["is_negative_sentiment"] == radio.value ? "primary" : "secondary"}
+                                                                    size="sm"
+                                                                    onClick={() => selectIsNegativeSentimentCheckbox(radio.value, msg)}                                                                        
+                                                                >
+                                                                    {radio.name}
+                                                                </Button>
+                                                                ))}
+                                                            </ButtonGroup> 
+                                                        </td>
+                                                    
+                                                    </tr>
+                                                )})
+                                            }
+                                            </tbody>
+                                        </Table>
+                                    </td>
+                                    
+                                    
                                     <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
                                         <Button
                                             color="warning"
@@ -175,40 +214,6 @@ const ConversationReviewTable = (props) => {
                                             אשר
                                         </Button>
                                     </td> 
-                                    <td style={{paddingRight: "0", paddingLeft: "0"}}>
-                                        <Table responsive>
-                                            <thead>
-                                            <tr>
-                                                <th>סנטימנט</th>
-                                                <th>טקסט</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {item["messages"].map((msg, index) => {
-                                                return (
-                                                    <tr key={String(index)}>
-                                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
-                                                        <ButtonGroup>
-                                                            {radios.map((radio, index) => (
-                                                            <Button
-                                                                color={msg["is_negative_sentiment"] == radio.value ? "primary" : "secondary"}
-                                                                size="sm"
-                                                                onClick={() => selectIsNegativeSentimentCheckbox(radio.value, msg)}                                                                        
-                                                            >
-                                                                {radio.name}
-                                                            </Button>
-                                                            ))}
-                                                        </ButtonGroup> 
-                                                    </td>
-                                                    <td style={{ verticalAlign:"middle", whiteSpace:"normal", paddingRight: "0", paddingLeft: "0" }}>{msg["message_txt"]}</td>
-                                                    </tr>
-                                                )})
-                                            }
-                                            </tbody>
-                                        </Table>
-                                    </td>
-                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["id"]}</td>
-                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["create_date"].split(" ")[0]}<br/>{item["lead"]["create_date"].split(" ")[1]} </td>
                                 </tr>)
                             })
                             }
