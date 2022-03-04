@@ -156,14 +156,17 @@ const ConversationReviewTable = (props) => {
                         <tbody>
                             {conversations.map((item, index) => {
                                 return (<tr key={String(index)}>
-                                    <td>
+                                    <td style={{verticalAlign: "middle"}}>
                                         <Button
                                             color="warning"
                                             onClick={(e) => declineLead(item["lead"]["id"])}
                                             size="sm"
+                                            style={{marginRight: "0"}}
                                         >
                                             דחה
-                                        </Button>                                                
+                                        </Button>
+                                        <br/>
+                                        <br/>
                                         <Button
                                             color="success"
                                             onClick={(e) => approveLead(item["lead"]["id"])}
@@ -205,7 +208,7 @@ const ConversationReviewTable = (props) => {
                                         </Table>
                                     </td>
                                     <td>{item["lead"]["id"]}</td>
-                                    <td>{item["lead"]["create_date"]}</td>
+                                    <td>{item["lead"]["create_date"].split(" ")[0]}<br/>{item["lead"]["create_date"].split(" ")[1]} </td>
                                 </tr>)
                             })
                             }
