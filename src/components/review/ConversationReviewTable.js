@@ -156,7 +156,7 @@ const ConversationReviewTable = (props) => {
                         <tbody>
                             {conversations.map((item, index) => {
                                 return (<tr key={String(index)}>
-                                    <td style={{verticalAlign: "middle"}}>
+                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
                                         <Button
                                             color="warning"
                                             onClick={(e) => declineLead(item["lead"]["id"])}
@@ -175,7 +175,7 @@ const ConversationReviewTable = (props) => {
                                             אשר
                                         </Button>
                                     </td> 
-                                    <td>
+                                    <td style={{paddingRight: "0", paddingLeft: "0"}}>
                                         <Table responsive>
                                             <thead>
                                             <tr>
@@ -187,7 +187,7 @@ const ConversationReviewTable = (props) => {
                                             {item["messages"].map((msg, index) => {
                                                 return (
                                                     <tr key={String(index)}>
-                                                    <td>
+                                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
                                                         <ButtonGroup>
                                                             {radios.map((radio, index) => (
                                                             <Button
@@ -200,15 +200,15 @@ const ConversationReviewTable = (props) => {
                                                             ))}
                                                         </ButtonGroup> 
                                                     </td>
-                                                    <td style={{ verticalAlign:"middle", whiteSpace:"normal"}}>{msg["message_txt"]}</td>
+                                                    <td style={{ verticalAlign:"middle", whiteSpace:"normal", paddingRight: "0", paddingLeft: "0" }}>{msg["message_txt"]}</td>
                                                     </tr>
                                                 )})
                                             }
                                             </tbody>
                                         </Table>
                                     </td>
-                                    <td>{item["lead"]["id"]}</td>
-                                    <td>{item["lead"]["create_date"].split(" ")[0]}<br/>{item["lead"]["create_date"].split(" ")[1]} </td>
+                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["id"]}</td>
+                                    <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>{item["lead"]["create_date"].split(" ")[0]}<br/>{item["lead"]["create_date"].split(" ")[1]} </td>
                                 </tr>)
                             })
                             }
