@@ -173,18 +173,21 @@ const ConversationReviewTable = (props) => {
                                                     <tr key={String(index)}>
                                                         
                                                         <td style={{ verticalAlign:"middle", whiteSpace:"normal", paddingRight: "0", paddingLeft: "0",  direction: "rtl" }}>{msg["message_txt"]}</td>
-                                                        <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0"}}>
-                                                            <ButtonGroup>
-                                                                {radios.map((radio, index) => (
-                                                                <Button
-                                                                    color={msg["is_negative_sentiment"] == radio.value ? "primary" : "secondary"}
-                                                                    size="sm"
-                                                                    onClick={() => selectIsNegativeSentimentCheckbox(radio.value, msg)}                                                                        
-                                                                >
-                                                                    {radio.name}
-                                                                </Button>
-                                                                ))}
-                                                            </ButtonGroup> 
+                                                        <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0", width:"100px"}}>
+                                                            { msg["author"] != "system" ?
+                                                                <ButtonGroup>
+                                                                    {radios.map((radio, index) => (
+                                                                    <Button
+                                                                        color={msg["is_negative_sentiment"] == radio.value ? "primary" : "secondary"}
+                                                                        size="sm"
+                                                                        onClick={() => selectIsNegativeSentimentCheckbox(radio.value, msg)}                                                                        
+                                                                    >
+                                                                        {radio.name}
+                                                                    </Button>
+                                                                    ))}
+                                                                </ButtonGroup> 
+                                                            : <></>
+                                                            }
                                                         </td>
                                                     
                                                     </tr>
