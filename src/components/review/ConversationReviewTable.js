@@ -62,7 +62,7 @@ const ConversationReviewTable = (props) => {
         setConversations(conversations => [...conversations])
         
         let service = new LeadService();
-        service.updateMessageSentiment(msg["id"], msg["is_negative_sentiment"])
+        service.updateMessageSentiment(msg["message_txt"], msg["is_negative_sentiment"])
     }
 
     const get_conversations = (campaign_id) => {
@@ -144,7 +144,74 @@ const ConversationReviewTable = (props) => {
                             אין לידים פעילים עבורך
                         </p>
                         :
-                        <Table className="align-center" responsive >
+                        <>
+                        {
+                            conversations.map((item, index) => {
+                                return (
+                                    <Table className="align-center" responsive >
+                                        <thead className="text-primary">
+                                            <tr className="bg-gray text-white">
+                                                <th colSpan={2}>
+                                                    <div style={{float: "right"}}>
+                                                        <Button
+                                                            color="warning"
+                                                            onClick={(e) => declineLead(item["lead"]["id"])}
+                                                            size="sm"
+                                                        >
+                                                            דחה
+                                                        </Button>
+                                                        <Button
+                                                            color="success"
+                                                            onClick={(e) => approveLead(item["lead"]["id"])}
+                                                            size="sm"
+                                                        >
+                                                            אשר
+                                                        </Button>
+                                                    </div>
+                                                    <div style={{float: "left"}}>
+                                                        {item["lead"]["create_date"]}
+                                                    </div>
+                                                    <div>
+                                                        {item["lead"]["from_num"]}
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {item["messages"].map((msg, index) => {
+                                                    return (
+                                                        <tr key={String(index)}>
+                                                            
+                                                            <td style={{ verticalAlign:"middle", whiteSpace:"normal", paddingRight: "0", paddingLeft: "0",  direction: "rtl" }}>
+                                                                {msg["message_txt"].map(item => {return <div>{item}</div>})}
+                                                            </td>
+                                                            <td style={{verticalAlign: "middle", paddingRight: "0", paddingLeft: "0", width:"100px"}}>
+                                                                { msg["author"] != "system" ?
+                                                                    <ButtonGroup>
+                                                                        {radios.map((radio, index) => (
+                                                                        <Button
+                                                                            color={msg["is_negative_sentiment"] == radio.value ? "primary" : "secondary"}
+                                                                            size="sm"
+                                                                            onClick={() => selectIsNegativeSentimentCheckbox(radio.value, msg)}                                                                        
+                                                                        >
+                                                                            {radio.name}
+                                                                        </Button>
+                                                                        ))}
+                                                                    </ButtonGroup> 
+                                                                : <></>
+                                                                }
+                                                            </td>
+                                                        
+                                                        </tr>
+                                                    )})
+                                                }
+                                        </tbody>
+                                    </Table>
+                                )
+                            })
+                        }
+
+                        {/* <Table className="align-center" responsive >
                         <thead className="text-primary">
                             <tr className="bg-primary text-white">
                                 <th>תאריך</th>
@@ -220,8 +287,9 @@ const ConversationReviewTable = (props) => {
                                 </tr>)
                             })
                             }
-                        </tbody>
-                    </Table>
+                            </tbody>
+                        </Table> */}
+                        </>
                     }
                 </Col>
             </Row>

@@ -32,9 +32,9 @@ export class LeadService {
         }
     }
 
-    async updateMessageSentiment(message_id, is_negative_sentiment) {
+    async updateMessageSentiment(messages_list, is_negative_sentiment) {
         try {
-            const res = await axios.post(SERVER_URL + '/leads/message_sentiment', {"messageid": message_id, "is_negative_sentiment": is_negative_sentiment}, {withCredentials: !IS_DEV_MODE})
+            const res = await axios.post(SERVER_URL + '/leads/message_sentiment', {"messages": messages_list, "is_negative_sentiment": is_negative_sentiment}, {withCredentials: !IS_DEV_MODE})
             return res;
         } catch(e) {
             console.log(e)
