@@ -77,7 +77,7 @@ export class OrderService {
             const res = await axios.get(SERVER_URL + '/order/all', {withCredentials: !IS_DEV_MODE})
             return res;
         } catch(e) {
-            console.log(e)
+            console.error(e)
         }
     }
 
