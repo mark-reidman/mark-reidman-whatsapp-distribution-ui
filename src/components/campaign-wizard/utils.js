@@ -5,6 +5,7 @@ export const phoneNumberCorrection = (text) => {
     if (newText === "")
         return String("");
     newText = newText.replace(/\D/g, '');
+    newText = newText.replace('-', '');
 
     if (newText.length < 9)
         return String(text);

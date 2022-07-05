@@ -41,7 +41,7 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                 let columnIndexes = [];
                 let local_data = {}
                 resp.rows[0].map((item, index) => {
-                    local_data[index] = { header: item, selectedVal: "none", isNameField: undefined, isPhoneField: undefined, colData: [] }
+                    local_data[index] = { header: item, selectedVal: "none", canBeNameField: undefined, canBePhoneField: undefined, isNameField: undefined, isPhoneField: undefined, colData: [] }
                     columnIndexes.push(index);
                 });
 
@@ -55,14 +55,14 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                             let phoneNumber = phoneNumberCorrection(row[indx]);
                             if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
                                 if (local_data[indx].isPhoneField == undefined){
-                                    local_data[indx].isPhoneField = true;
-                                    local_data[indx].isNameField = false;
+                                    local_data[indx].canBePhoneField = true;
+                                    local_data[indx].canBeNameField = false;
                                 }
                             }
                             else if (phoneNumber != ""){
-                                if (local_data[indx].isNameField == undefined){
-                                    local_data[indx].isNameField = true;
-                                    local_data[indx].isPhoneField = false;
+                                if (local_data[indx].NameField == undefined){
+                                    local_data[indx].canBeNameField = true;
+                                    local_data[indx].canBePhoneField = false;
                                 }
                             }
                             local_data[indx].colData.push(phoneNumber);
@@ -71,23 +71,6 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                             local_data[indx].colData.push("");
                         }
                     });
-
-                    // row.map((cell, cellIndex) => {
-                    //     let phoneNumber = phoneNumberCorrection(cell);
-                    //     if (phoneNumber.startsWith("972") && phoneNumber.length == 12) {
-                    //         if (local_data[cellIndex].isPhoneField == undefined){
-                    //             local_data[cellIndex].isPhoneField = true;
-                    //             local_data[cellIndex].isNameField = false;
-                    //         }
-                    //     }
-                    //     else if (phoneNumber != ""){
-                    //         if (local_data[cellIndex].isNameField == undefined){
-                    //             local_data[cellIndex].isNameField = true;
-                    //             local_data[cellIndex].isPhoneField = false;
-                    //         }
-                    //     }
-                    //     local_data[cellIndex].colData.push(phoneNumber);
-                    // });
                 });
 
 
@@ -125,13 +108,24 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
             setData((prevState) => {
                 let newState = prevState
                 newState[id].selectedVal = val;
+                
                 Object.keys(newState).map((key) => {
-                    if (key != id){
+                    if (key != id) {
                         if (val == "name" && newState[key].selectedVal == "name") {
                             newState[key].selectedVal = "none";
+                            newState[key].isNameField = false
                         }
                         if (val == "phone" && newState[key].selectedVal == "phone") {
                             newState[key].selectedVal = "none";
+                            newState[key].isPhoneField = false
+                        }
+                    }
+                    else {
+                        if (val == "name" && newState[key].selectedVal == "name") {
+                            newState[key].isNameField = true
+                        }
+                        if (val == "phone" && newState[key].selectedVal == "phone") {
+                            newState[key].isPhoneField = true
                         }
                     }
                 }); 
@@ -156,17 +150,30 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
             }
         });
 
+        if (phoneIndex == undefined || nameIndex == undefined){
+            setErrorMessage("חייב לבחור שם ומספר טלפון");
+            return;
+        }
+
         let tuples = []
         for (let i = 0; i < data[phoneIndex].colData.length; i++) {
             let phn = data[phoneIndex].colData[i];
             let nm = "";
             if (i < data[nameIndex].colData.length){
-                nm = data[nameIndex].colData[i]
+                nm = data[nameIndex].colData[i].trim()
             }
-            tuples.push({"phone": phn, "name": nm})
+            if (phn != '' && phn != undefined && nm != '' && nm != undefined) {
+                tuples.push({"phone": phn, "name": nm})
+            }
         }
         
-        phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[phoneIndex].header, "column_name": data[nameIndex].header,"data": tuples, id: uniqueID()})
+        if (tuples.length == 0){
+            setErrorMessage("לא נטענו מספרי טלפון")
+            return;
+        }
+        else{
+            phoneLists.push({"fileType": "excel" ,"fileName": fileName, "column": data[phoneIndex].header, "column_name": data[nameIndex].header,"data": tuples, id: uniqueID()})
+        }
 
         // Object.keys(data).map((key) => {
         //     // TODO - create tuples of name and phone to send to server
@@ -263,8 +270,8 @@ const StartCampaignModal = ({ modalOpen, setModalOpen, distributionList, setDist
                                                         type="select"
                                                     >
                                                         <option defaultValue="none" placeholder="true">בחר</option>
-                                                        <option value="phone" disabled={!data[key].isPhoneField}>מס טלפון</option>
-                                                        <option value="name" disabled={!data[key].isNameField}>שם לקוח</option>
+                                                        <option value="phone" disabled={!data[key].canBePhoneField}>מס טלפון</option>
+                                                        <option value="name" disabled={!data[key].canBeNameField}>שם לקוח</option>
                                                     </Input>
                                                         {/* <input
                                                             className="custom-control-input"
